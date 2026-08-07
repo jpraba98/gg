@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #09090b;
+  --foreground: #ffffff;
+}
+
+* {
+  border-color: #2a2a2a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-body), Inter, sans-serif;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display), Impact, sans-serif;
+    letter-spacing: 0.01em;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .container-drip {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  .section-label {
+    @apply text-xs font-semibold uppercase tracking-[0.25em] text-drip-500;
+  }
+
+  .section-label-gold {
+    @apply text-xs font-semibold uppercase tracking-[0.25em] text-gold-500;
+  }
+
+  .section-label-motion {
+    @apply text-xs font-semibold uppercase tracking-[0.25em] text-motion-500;
+  }
+
+  .card-lift {
+    @apply transition-all duration-300 ease-out hover:-translate-y-1.5;
+  }
+
+  .text-gradient-drip {
+    @apply bg-gradient-to-r from-drip-400 via-drip-500 to-drip-600 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-motion {
+    @apply bg-gradient-to-r from-motion-400 via-motion-500 to-motion-600 bg-clip-text text-transparent;
+  }
+
+  .bg-noise {
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+  }
+}
+
+::selection {
+  background: #5bc8f5;
+  color: #09090b;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5bc8f5;
+}
