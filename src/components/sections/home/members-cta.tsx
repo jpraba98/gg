@@ -21,7 +21,7 @@ export function MembersCta() {
           <div className="absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-drip-500/25 blur-[120px]" />
           <Gem className="relative mx-auto h-10 w-10 text-drip-500" />
           <h2 className="relative mt-6 font-display text-4xl text-white sm:text-5xl">
-            Join The Drip Room Community
+            Join TheDripRoom6ix Community
           </h2>
           <p className="relative mx-auto mt-4 max-w-lg text-text-secondary">
             Discounts on services, events, and merch — plus early info drops for members.
@@ -32,7 +32,7 @@ export function MembersCta() {
             </span>
             <span className="hidden h-4 w-px bg-border sm:block" />
             <span>
-              <span className="font-semibold text-white">Top Tier</span> — from $10/mo
+              <span className="font-semibold text-white">Top Tier</span> — $10/mo or $120/yr
             </span>
           </div>
           <Button asChild size="lg" className="relative mt-8">

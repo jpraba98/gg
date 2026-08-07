@@ -36,19 +36,19 @@ export async function POST(req: NextRequest) {
           `Contact: ${data.contactName}`,
           `Email: ${data.email}`,
           `Phone: ${data.phone}`,
-          `Event: ${data.eventInterest}`,
-          `Package: ${data.packageInterest}`,
+          `Event/Campaign: ${data.eventInterest}`,
           `Message: ${data.message}`,
         ];
 
   const apiKey = process.env.RESEND_API_KEY;
+  const notifyEmail = process.env.CONTACT_EMAIL ?? siteConfig.contactEmail;
 
   if (apiKey) {
     try {
       const resend = new Resend(apiKey);
       await resend.emails.send({
-        from: process.env.RESEND_FROM_EMAIL ?? "The Drip Room <onboarding@resend.dev>",
-        to: siteConfig.contactEmail,
+        from: process.env.RESEND_FROM_EMAIL ?? "TheDripRoom6ix <onboarding@resend.dev>",
+        to: notifyEmail,
         replyTo: data.email,
         subject,
         text: lines.join("\n"),

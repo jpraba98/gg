@@ -9,7 +9,7 @@ import { blogPosts } from "@/data/blog";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Event recaps, artist features, industry tips, and press releases from The Drip Room.",
+    "Event recaps, artist features, industry tips, and press releases from TheDripRoom6ix.",
 };
 
 export default function BlogPage() {
@@ -19,7 +19,7 @@ export default function BlogPage() {
         <div className="mb-12 max-w-xl">
           <p className="section-label">Blog</p>
           <h1 className="mt-3 font-display text-5xl text-white sm:text-6xl">
-            The Drip Room <span className="text-gradient-drip">Journal</span>
+            TheDripRoom6ix <span className="text-gradient-drip">Journal</span>
           </h1>
           <p className="mt-4 text-text-secondary">
             Events, artist features, industry tips, press releases, and culture — from the team

@@ -34,7 +34,7 @@ export function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <Logo showWordmark={false} className="mb-8 [&>svg]:h-16 [&>svg]:w-16" />
+          <Logo showWordmark={false} size="lg" className="mb-8" />
         </motion.div>
 
         <motion.h1

@@ -70,7 +70,7 @@ export function FeaturedEventDetail() {
           </div>
 
           <Button asChild size="lg" variant="motion" className="mt-10">
-            <a href={event.ticketUrl} target="_blank" rel="noreferrer">
+            <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
               Get Tickets
             </a>
           </Button>

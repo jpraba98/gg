@@ -17,31 +17,41 @@ export function PastEvents() {
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {pastEvents.map((event, i) => (
-            <motion.div
-              key={`${event.name}-${event.season ?? ""}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.4, delay: (i % 6) * 0.06 }}
-            >
-              <Card className="card-lift group flex items-center gap-4 p-5 hover:border-gold-500/40">
-                <div className="grid h-14 w-14 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-gold-500/25 to-obsidian">
-                  <ImageIcon className="h-5 w-5 text-gold-500" />
-                </div>
-                <div className="min-w-0">
-                  <p className="truncate font-semibold text-white">
-                    {event.name}
-                    {event.season ? ` ${event.season}` : ""}
-                  </p>
-                  <p className="text-xs text-text-secondary">{event.year}</p>
-                  <button className="mt-1 text-xs font-semibold text-gold-500 opacity-0 transition-opacity group-hover:opacity-100">
-                    View Recap
-                  </button>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+          {pastEvents.map((event, i) => {
+            const label = `${event.name}${event.season ? ` ${event.season}` : ""}`;
+            return (
+              <motion.div
+                key={`${event.name}-${event.season ?? ""}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.4, delay: (i % 6) * 0.06 }}
+              >
+                <Card className="card-lift overflow-hidden p-0 hover:border-gold-500/40">
+                  {/* TODO: swap for the real event recap photo once the client provides it — keep the aspect-video ratio */}
+                  <div
+                    className="flex aspect-video items-center justify-center bg-gradient-to-br from-gold-500/25 to-obsidian"
+                    role="img"
+                    aria-label={`${label} recap photo placeholder`}
+                  >
+                    <ImageIcon className="h-6 w-6 text-gold-500" aria-hidden="true" />
+                  </div>
+                  <div className="p-5">
+                    <p className="truncate font-semibold text-white">{label}</p>
+                    <p className="text-xs text-text-secondary">{event.year}</p>
+                    {/* TODO: link to the real recap post/gallery once available */}
+                    <a
+                      href="#"
+                      aria-label={`View recap for ${label} (coming soon)`}
+                      className="mt-1 inline-block text-xs font-semibold text-gold-500 hover:underline"
+                    >
+                      View Recap
+                    </a>
+                  </div>
+                </Card>
+              </motion.div>
+            );
+          })}
         </div>
       </Container>
     </section>

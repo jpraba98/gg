@@ -38,11 +38,11 @@ export function Footer() {
                 key={label}
                 href={href}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label={label}
                 className="grid h-10 w-10 place-items-center rounded-full border border-border text-text-secondary transition-all hover:border-drip-500 hover:text-drip-500"
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-4 w-4" aria-hidden="true" />
               </a>
             ))}
           </div>
@@ -75,7 +75,7 @@ export function Footer() {
             </li>
             <li>{siteConfig.handle}</li>
             <li>
-              <a href={siteConfig.discordUrl} target="_blank" rel="noreferrer" className="hover:text-white">
+              <a href={siteConfig.discordUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">
                 discord.gg/JZ4JNKJN3
               </a>
             </li>
@@ -85,7 +85,7 @@ export function Footer() {
 
       <div className="border-t border-border py-6">
         <Container className="flex flex-col items-center gap-2 text-center text-xs text-text-secondary sm:flex-row sm:justify-between">
-          <p>© {year} The Drip Room. All rights reserved.</p>
+          <p>© {year} TheDripRoom6ix. All rights reserved.</p>
           <p>Powered by {siteConfig.parentCompany}</p>
         </Container>
       </div>

@@ -30,8 +30,8 @@ export const membershipTiers: MembershipTier[] = [
   {
     id: "top-tier",
     name: "Top Tier",
-    monthly: "TBD",
-    yearly: "TBD",
+    monthly: "$10/month",
+    yearly: "$120/year",
     perks: [
       "Priority booking",
       "Exclusive content",

@@ -16,20 +16,23 @@ export function InstagramPreview() {
           <a
             href={siteConfig.social.instagram}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="text-sm font-semibold text-drip-500 hover:underline"
           >
             Follow on Instagram
           </a>
         </div>
 
+        {/* TODO: replace with the live Instagram Basic Display API feed once connected */}
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
+              role="img"
+              aria-label={`Instagram post placeholder ${i + 1}`}
               className="flex aspect-square items-center justify-center rounded-xl border border-border bg-gradient-to-br from-drip-500/15 to-card"
             >
-              <InstagramIcon className="h-6 w-6 text-drip-500/60" />
+              <InstagramIcon className="h-6 w-6 text-drip-500/60" aria-hidden="true" />
             </div>
           ))}
         </div>

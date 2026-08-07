@@ -47,7 +47,7 @@ export function MediaPreview() {
                 key={video.id}
                 href={`https://www.youtube.com/watch?v=${video.id}`}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}

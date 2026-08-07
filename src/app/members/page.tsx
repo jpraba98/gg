@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/site-config";
 export const metadata: Metadata = {
   title: "Members",
   description:
-    "Join The Drip Room membership community — discounts on services, events, and merch, plus early info drops.",
+    "Join TheDripRoom6ix membership community — discounts on services, events, and merch, plus early info drops.",
 };
 
 export default function MembersPage() {
@@ -24,7 +24,7 @@ export default function MembersPage() {
             <a
               href={siteConfig.discordUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-drip-500 hover:underline"
             >
               Discord community

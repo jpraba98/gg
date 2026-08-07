@@ -8,7 +8,7 @@ import { Mission } from "@/components/sections/about/mission";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Meet the founder behind The Drip Room — Toronto's creative engine spanning talent management, media production, and event production.",
+    "The story behind TheDripRoom6ix — Toronto's creative engine spanning talent management, media production, and event production.",
 };
 
 export default function AboutPage() {

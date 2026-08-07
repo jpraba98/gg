@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "The Drip Room",
+  name: "TheDripRoom6ix",
   handle: "@thedriproom6ix",
   domain: "thedriproom6ix.com",
   tagline: "Toronto's Creative Engine",

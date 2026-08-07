@@ -7,7 +7,7 @@ import { InstagramPreview } from "@/components/sections/media/instagram-preview"
 export const metadata: Metadata = {
   title: "Media",
   description:
-    "Watch event recaps, music videos, interviews, and behind-the-scenes content from The Drip Room.",
+    "Watch event recaps, music videos, interviews, and behind-the-scenes content from TheDripRoom6ix.",
 };
 
 export default function MediaPage() {
@@ -17,7 +17,7 @@ export default function MediaPage() {
         <Container>
           <p className="section-label">Media</p>
           <h1 className="mt-3 font-display text-5xl text-white sm:text-6xl">
-            Watch <span className="text-gradient-drip">The Drip Room</span>
+            Watch <span className="text-gradient-drip">TheDripRoom6ix</span>
           </h1>
           <p className="mt-4 max-w-xl text-text-secondary">
             Event recaps, music videos, interviews, and behind-the-scenes — straight from{" "}

@@ -8,7 +8,7 @@ import { PastEvents } from "@/components/sections/events/past-events";
 export const metadata: Metadata = {
   title: "Events",
   description:
-    "Upcoming and past events from The Drip Room — Toronto showcases, networking nights, and members-only experiences.",
+    "Upcoming and past events from TheDripRoom6ix — Toronto showcases, networking nights, and members-only experiences.",
 };
 
 export default function EventsPage() {

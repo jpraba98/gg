@@ -1,15 +1,8 @@
-import { Users, CalendarCheck2, Mail, Globe2 } from "lucide-react";
+import { TrendingUp, Globe2 } from "lucide-react";
 
 import { Container } from "@/components/shared/container";
 import { Card } from "@/components/ui/card";
-import { siteConfig } from "@/lib/site-config";
-
-const stats = [
-  { icon: Users, label: "Community Reach", value: siteConfig.stats.followers },
-  { icon: CalendarCheck2, label: "Events Produced", value: siteConfig.stats.events },
-  { icon: Mail, label: "Email Database", value: "500+" },
-  { icon: Globe2, label: "Audience", value: "Tamil, Caribbean, Jamaican & multicultural GTA" },
-];
+import { sponsorStats, sponsorAudience } from "@/data/sponsor";
 
 export function WhySponsor() {
   return (
@@ -22,14 +15,20 @@ export function WhySponsor() {
           </h2>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => (
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {sponsorStats.map((stat) => (
             <Card key={stat.label} className="p-6">
-              <stat.icon className="h-6 w-6 text-drip-500" />
+              <TrendingUp className="h-6 w-6 text-drip-500" aria-hidden="true" />
               <p className="mt-4 font-display text-2xl text-white">{stat.value}</p>
               <p className="mt-1 text-sm text-text-secondary">{stat.label}</p>
             </Card>
           ))}
+
+          <Card className="p-6 sm:col-span-2 lg:col-span-3">
+            <Globe2 className="h-6 w-6 text-drip-500" aria-hidden="true" />
+            <p className="mt-4 text-sm uppercase tracking-wide text-text-secondary">Audience</p>
+            <p className="mt-1 font-display text-xl text-white">{sponsorAudience}</p>
+          </Card>
         </div>
       </Container>
     </section>

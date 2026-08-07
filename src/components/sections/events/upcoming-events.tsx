@@ -83,7 +83,7 @@ export function UpcomingEvents() {
                   </div>
                   <p className="mt-3 text-sm font-semibold text-white">{event.priceRange}</p>
                   <Button asChild variant="gold" className="mt-5 w-full">
-                    <a href={event.ticketUrl} target="_blank" rel="noreferrer">
+                    <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
                       RSVP / Buy Tickets
                     </a>
                   </Button>

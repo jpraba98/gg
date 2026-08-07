@@ -10,7 +10,7 @@ import { Container } from "@/components/shared/container";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Event production, artist management, and media & promo services from The Drip Room — bundles, hype packs, and custom campaigns.",
+    "Event production, artist management, and media & promo services from TheDripRoom6ix — bundles, hype packs, and custom campaigns.",
 };
 
 export default function ServicesPage() {

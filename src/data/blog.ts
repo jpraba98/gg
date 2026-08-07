@@ -18,7 +18,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "3 min read",
     excerpt:
       "We're teaming up with Access 2 Motion and CTR Productions to bring Toronto its next unmissable night out. Here's everything you need to know.",
-    author: "The Drip Room Team",
+    author: "TheDripRoom6ix Team",
     content: [
       "TheDripRoom6ix is proud to announce Island Motion Vol. 1, presented by Access 2 Motion and powered by TheDripRoom6ix & CTR Productions, landing at Dopamine Lounge on August 27, 2026.",
       "This showcase brings together live performance and DJ culture in one room, headlined by Topman Meeko with sets from DJ Icy, and openers DJ Unruly & DJ Jojo.",
@@ -33,9 +33,9 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     excerpt:
       "A look back at five years of events, artist management, and media production — and what it took to build a lasting community.",
-    author: "JP",
+    author: "TheDripRoom6ix Team",
     content: [
-      "Five years ago, The Drip Room started as an idea — a way to create space for Toronto's creative community that didn't exist yet.",
+      "Five years ago, TheDripRoom6ix started as an idea — a way to create space for Toronto's creative community that didn't exist yet.",
       "Since then we've produced 14+ events, worked with over 1,000 clients, and built a community of 8,000+ across our platforms.",
       "The throughline has always been the same: give Toronto's culture a real platform, and back it with the professionalism to make it last.",
     ],
@@ -48,7 +48,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min read",
     excerpt:
       "Practical strategies independent Toronto artists can use right now to grow their reach — pulled straight from our own service catalog.",
-    author: "The Drip Room Team",
+    author: "TheDripRoom6ix Team",
     content: [
       "Independent artists in Toronto face a crowded field, but the fundamentals of getting discovered haven't changed: consistent content, strategic placements, and real community engagement.",
       "Our Hype Packs were built specifically to give emerging artists an affordable way to test paid promotion without committing to a full campaign.",

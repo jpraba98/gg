@@ -42,7 +42,7 @@ export function FeaturedEventStrip() {
           </div>
 
           <Button asChild variant="motion" size="lg" className="shrink-0">
-            <a href={event.ticketUrl} target="_blank" rel="noreferrer">
+            <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
               Get Tickets
             </a>
           </Button>

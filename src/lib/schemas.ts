@@ -14,12 +14,11 @@ export type BookingFormValues = z.infer<typeof bookingSchema>;
 
 export const sponsorSchema = z.object({
   type: z.literal("sponsor"),
-  companyName: z.string().min(2, "Company name is required"),
+  companyName: z.string().min(2, "Company / brand name is required"),
   contactName: z.string().min(2, "Contact name is required"),
   email: z.string().email("Enter a valid email"),
   phone: z.string().min(7, "Enter a valid phone number"),
-  eventInterest: z.string().min(1, "Select an event"),
-  packageInterest: z.string().min(1, "Select a package"),
+  eventInterest: z.string().min(1, "Select an event or campaign"),
   message: z.string().min(10, "Tell us a bit more (10+ characters)"),
 });
 

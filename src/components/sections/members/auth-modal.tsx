@@ -73,7 +73,7 @@ export function AuthModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Join The Drip Room</DialogTitle>
+          <DialogTitle>Join TheDripRoom6ix</DialogTitle>
           <DialogDescription>Sign up or log in to manage your membership.</DialogDescription>
         </DialogHeader>
 

@@ -26,16 +26,16 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description:
-    "Toronto's premier independent entertainment brand — talent management, media production, and event production. Events. Talent. Media. Culture.",
+    "TheDripRoom6ix — Toronto's premier entertainment brand spanning events, talent management, and media production.",
   keywords: [
-    "The Drip Room",
     "TheDripRoom6ix",
+    "The Drip Room",
     "Toronto events",
     "Toronto talent management",
     "Toronto media production",
   ],
   openGraph: {
-    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    title: siteConfig.name,
     description: "Events. Talent. Media. Culture.",
     url: `https://${siteConfig.domain}`,
     siteName: siteConfig.name,
@@ -55,7 +55,7 @@ export default function RootLayout({
         className={`${displayFont.variable} ${bodyFont.variable} bg-obsidian font-body text-white antialiased`}
       >
         <Navbar />
-        <main className="min-h-screen pb-16 lg:pb-0">{children}</main>
+        <main className="min-h-screen pb-28 lg:pb-0">{children}</main>
         <Footer />
         <MobileFab />
       </body>

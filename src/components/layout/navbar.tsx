@@ -39,7 +39,7 @@ export function Navbar() {
       )}
     >
       <Container className="flex h-20 items-center justify-between">
-        <Link href="/" aria-label="The Drip Room home">
+        <Link href="/" aria-label="TheDripRoom6ix home">
           <Logo variant={isEvents ? "gold" : "drip"} />
         </Link>
 
