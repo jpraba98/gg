@@ -22,17 +22,21 @@ const accentMap = {
 // client-provided assets. If either is ever removed, the <img> below 404s and the
 // component falls back to the inline SVG mark automatically.
 //
-// Both source files have a long dripping tail below the wordmark that reads fine at
-// hero size but disappears into illegibility at navbar height, so the "-compact" crops
-// (plain crops of the same source — no re-editing) are used for "sm" contexts instead.
+// Both source files sit on a much larger transparent canvas than their actual
+// artwork (gold especially — its mark fills only ~32% of the canvas height vs.
+// blue's ~64%), so matching container heights produced visibly mismatched logo
+// sizes. The "-compact" (navbar/footer) and "-hero" (standalone hero mark) crops
+// are plain crops of the same source — no re-editing — tightened to the artwork's
+// bounding box with a small uniform margin, so both variants fill their container
+// by the same proportion and read as the same size at any given height.
 const logoSrc: Record<"drip" | "gold", Record<"sm" | "lg", string>> = {
   drip: {
     sm: "/images/logo-blue-compact.png",
-    lg: "/images/logo-blue.png",
+    lg: "/images/logo-blue-hero.png",
   },
   gold: {
     sm: "/images/logo-gold-compact.png",
-    lg: "/images/logo-gold.png",
+    lg: "/images/logo-gold-hero.png",
   },
 };
 
@@ -41,11 +45,11 @@ const logoSrc: Record<"drip" | "gold", Record<"sm" | "lg", string>> = {
 const naturalSize: Record<"drip" | "gold", Record<"sm" | "lg", { width: number; height: number }>> = {
   drip: {
     sm: { width: 680, height: 390 },
-    lg: { width: 1000, height: 1000 },
+    lg: { width: 688, height: 711 },
   },
   gold: {
     sm: { width: 480, height: 250 },
-    lg: { width: 1080, height: 1350 },
+    lg: { width: 474, height: 489 },
   },
 };
 
