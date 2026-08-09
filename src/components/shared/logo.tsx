@@ -22,17 +22,16 @@ const accentMap = {
 // client-provided assets. If either is ever removed, the <img> below 404s and the
 // component falls back to the inline SVG mark automatically.
 //
-// logo-blue.png has a long dripping tail below the wordmark that reads fine at hero
-// size but disappears into illegibility at navbar height, so logo-blue-compact.png
-// (a plain crop of the same source — no re-editing) is used for "sm" contexts instead.
-// logo-gold.png is a self-contained circular badge that reads fine small as-is.
+// Both source files have a long dripping tail below the wordmark that reads fine at
+// hero size but disappears into illegibility at navbar height, so the "-compact" crops
+// (plain crops of the same source — no re-editing) are used for "sm" contexts instead.
 const logoSrc: Record<"drip" | "gold", Record<"sm" | "lg", string>> = {
   drip: {
     sm: "/images/logo-blue-compact.png",
     lg: "/images/logo-blue.png",
   },
   gold: {
-    sm: "/images/logo-gold.png",
+    sm: "/images/logo-gold-compact.png",
     lg: "/images/logo-gold.png",
   },
 };
@@ -45,8 +44,8 @@ const naturalSize: Record<"drip" | "gold", Record<"sm" | "lg", { width: number; 
     lg: { width: 1000, height: 1000 },
   },
   gold: {
-    sm: { width: 880, height: 1214 },
-    lg: { width: 880, height: 1214 },
+    sm: { width: 480, height: 250 },
+    lg: { width: 1080, height: 1350 },
   },
 };
 
