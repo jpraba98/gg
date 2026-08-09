@@ -51,7 +51,7 @@ const naturalSize: Record<"drip" | "gold", Record<"sm" | "lg", { width: number; 
 
 const sizeClasses: Record<"sm" | "lg", string> = {
   sm: "h-9",
-  lg: "h-32 sm:h-44",
+  lg: "h-48 sm:h-64 lg:h-80",
 };
 
 export function Logo({ variant = "drip", className, showWordmark = true, size = "sm" }: LogoProps) {
