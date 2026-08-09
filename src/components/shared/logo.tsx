@@ -18,13 +18,36 @@ const accentMap = {
   gold: { primary: "#D4AF37", secondary: "#B3922A" },
 };
 
-// TODO: client-provided assets — drop the real files at these paths:
-// public/images/logo-blue.png (global) and public/images/logo-gold.png (events pages).
-// Until they exist, the <img> below 404s and the component falls back to the inline
-// SVG mark automatically.
-const logoSrc: Record<"drip" | "gold", string> = {
-  drip: "/images/logo-blue.png",
-  gold: "/images/logo-gold.png",
+// public/images/logo-blue.png (global) and logo-gold.png (events pages) are the
+// client-provided assets. If either is ever removed, the <img> below 404s and the
+// component falls back to the inline SVG mark automatically.
+//
+// logo-blue.png has a long dripping tail below the wordmark that reads fine at hero
+// size but disappears into illegibility at navbar height, so logo-blue-compact.png
+// (a plain crop of the same source — no re-editing) is used for "sm" contexts instead.
+// logo-gold.png is a self-contained circular badge that reads fine small as-is.
+const logoSrc: Record<"drip" | "gold", Record<"sm" | "lg", string>> = {
+  drip: {
+    sm: "/images/logo-blue-compact.png",
+    lg: "/images/logo-blue.png",
+  },
+  gold: {
+    sm: "/images/logo-gold.png",
+    lg: "/images/logo-gold.png",
+  },
+};
+
+// Real pixel dimensions of each source file, so next/image can compute the correct
+// aspect ratio (avoids layout shift) instead of assuming a square.
+const naturalSize: Record<"drip" | "gold", Record<"sm" | "lg", { width: number; height: number }>> = {
+  drip: {
+    sm: { width: 680, height: 390 },
+    lg: { width: 1000, height: 1000 },
+  },
+  gold: {
+    sm: { width: 880, height: 1214 },
+    lg: { width: 880, height: 1214 },
+  },
 };
 
 const sizeClasses: Record<"sm" | "lg", string> = {
@@ -40,11 +63,10 @@ export function Logo({ variant = "drip", className, showWordmark = true, size = 
   if (!imageFailed) {
     return (
       <Image
-        src={logoSrc[variant]}
+        src={logoSrc[variant][size]}
         alt="TheDripRoom6ix"
-        width={160}
-        height={160}
-        unoptimized
+        width={naturalSize[variant][size].width}
+        height={naturalSize[variant][size].height}
         className={cn(heightClass, "w-auto object-contain", className)}
         onError={() => setImageFailed(true)}
       />
