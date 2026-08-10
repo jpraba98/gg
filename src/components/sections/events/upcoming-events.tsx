@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, MapPin, Newspaper } from "lucide-react";
 
 import { Container } from "@/components/shared/container";
 import { Card } from "@/components/ui/card";
@@ -82,6 +82,17 @@ export function UpcomingEvents() {
                     </p>
                   </div>
                   <p className="mt-3 text-sm font-semibold text-white">{event.priceRange}</p>
+                  {event.pressUrl && (
+                    <a
+                      href={event.pressUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-gold-500 hover:underline"
+                    >
+                      <Newspaper className="h-3.5 w-3.5" aria-hidden="true" />
+                      {event.pressLabel ?? "As Featured In"}
+                    </a>
+                  )}
                   <Button asChild variant="gold" className="mt-5 w-full">
                     <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
                       RSVP / Buy Tickets

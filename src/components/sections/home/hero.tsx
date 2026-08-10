@@ -2,12 +2,15 @@
 
 import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
+import { Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { Logo } from "@/components/shared/logo";
+import { upcomingEvents } from "@/data/events";
 
 const title = "TORONTO'S CREATIVE ENGINE";
+const featuredEvent = upcomingEvents[0];
 
 const container: Variants = {
   hidden: {},
@@ -36,6 +39,23 @@ export function Hero() {
         >
           <Logo showWordmark={false} size="lg" className="mb-8" />
         </motion.div>
+
+        {featuredEvent && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.5 }}
+          >
+            <Link
+              href="/events"
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-drip-500/30 bg-drip-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-drip-400 transition-colors hover:border-drip-500/60 hover:text-drip-300"
+            >
+              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+              Up Next: {featuredEvent.name.replace(/^A2M Presents /, "")} —{" "}
+              {featuredEvent.dateLabel.split(",")[1]?.trim()}
+            </Link>
+          </motion.div>
+        )}
 
         <motion.h1
           variants={container}

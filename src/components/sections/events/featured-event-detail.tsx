@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CalendarDays, MapPin, Clock, IdCard, Ticket, Mic2 } from "lucide-react";
+import { CalendarDays, MapPin, Clock, IdCard, Ticket, Mic2, Newspaper } from "lucide-react";
 
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
@@ -69,11 +69,24 @@ export function FeaturedEventDetail() {
             </div>
           </div>
 
-          <Button asChild size="lg" variant="motion" className="mt-10">
-            <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
-              Get Tickets
-            </a>
-          </Button>
+          <div className="mt-10 flex flex-wrap items-center gap-6">
+            <Button asChild size="lg" variant="motion">
+              <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
+                Get Tickets
+              </a>
+            </Button>
+            {event.pressUrl && (
+              <a
+                href={event.pressUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-motion-400 hover:underline"
+              >
+                <Newspaper className="h-4 w-4" aria-hidden="true" />
+                {event.pressLabel ?? "As Featured In"}
+              </a>
+            )}
+          </div>
         </motion.div>
       </Container>
     </section>

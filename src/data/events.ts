@@ -17,6 +17,8 @@ export interface DripEvent {
   theme: "motion" | "drip" | "gold";
   description: string;
   image?: string;
+  pressUrl?: string;
+  pressLabel?: string;
 }
 
 export const upcomingEvents: DripEvent[] = [
@@ -39,6 +41,8 @@ export const upcomingEvents: DripEvent[] = [
     theme: "motion",
     description:
       "An electric night of live performance and DJ sets celebrating island culture in the heart of Toronto — presented by Access 2 Motion, powered by TheDripRoom6ix and CTR Productions.",
+    pressUrl: "https://www.blogto.com/events/access2motion-presents-island-motion-vol-1-toronto/",
+    pressLabel: "Featured on BlogTO",
   },
 ];
 

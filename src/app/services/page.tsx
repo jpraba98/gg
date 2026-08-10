@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ServicesHero } from "@/components/sections/services/services-hero";
 import { Bundles } from "@/components/sections/services/bundles";
 import { HypePacks } from "@/components/sections/services/hype-packs";
+import { ProofOfWork } from "@/components/sections/services/proof-of-work";
 import { CatalogGrid } from "@/components/sections/services/catalog-grid";
 import { BookingForm } from "@/components/sections/services/booking-form";
 import { Container } from "@/components/shared/container";
@@ -19,6 +20,7 @@ export default function ServicesPage() {
       <ServicesHero />
       <Bundles />
       <HypePacks />
+      <ProofOfWork />
       <CatalogGrid />
       <section className="border-t border-border py-24">
         <Container>
