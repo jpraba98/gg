@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, PlayCircle } from "lucide-react";
 
 import { Container } from "@/components/shared/container";
 import { Card } from "@/components/ui/card";
@@ -64,6 +64,17 @@ export function MediaPortfolio() {
                     </p>
                     <p className="mt-1 font-medium text-white">{credit.title}</p>
                     {credit.note && <p className="text-xs text-text-secondary">{credit.note}</p>}
+                    {credit.videoUrl && (
+                      <a
+                        href={credit.videoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1.5 inline-flex items-center gap-1.5 text-xs font-semibold text-drip-500 hover:underline"
+                      >
+                        <PlayCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                        Watch Here
+                      </a>
+                    )}
                   </div>
                   <p className="text-sm text-text-secondary sm:shrink-0 sm:text-right">{credit.role}</p>
                 </div>

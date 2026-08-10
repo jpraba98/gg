@@ -1,3 +1,5 @@
+import { PlayCircle } from "lucide-react";
+
 import { Container } from "@/components/shared/container";
 import { Card } from "@/components/ui/card";
 import { industryCredits } from "@/data/press";
@@ -30,6 +32,17 @@ export function ProofOfWork() {
                 {credit.role}
                 {credit.note ? ` — ${credit.note}` : ""}
               </p>
+              {credit.videoUrl && (
+                <a
+                  href={credit.videoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-drip-500 hover:underline"
+                >
+                  <PlayCircle className="h-4 w-4" aria-hidden="true" />
+                  Watch Here
+                </a>
+              )}
             </Card>
           ))}
         </div>

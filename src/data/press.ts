@@ -37,6 +37,7 @@ export interface IndustryCredit {
   title: string;
   role: string;
   note?: string;
+  videoUrl?: string;
 }
 
 export const industryCredits: IndustryCredit[] = [
@@ -45,6 +46,7 @@ export const industryCredits: IndustryCredit[] = [
     title: "Stars Align (Seasons 1–4)",
     role: "Lead Partner / Marketing",
     note: "Industry Artist Showcase Series",
+    videoUrl: "https://www.youtube.com/watch?v=cApqBl8g1vY",
   },
   {
     category: "Featured Event",
@@ -57,17 +59,20 @@ export const industryCredits: IndustryCredit[] = [
     title: "Dope Boy DQ Videos",
     role: "Content / Event Coordinator",
     note: "3 Music Videos Produced",
+    videoUrl: "https://www.youtube.com/watch?v=oHRBXZze-J8",
   },
   {
     category: "Brand Placement",
     title: "Buggz Music Video",
     role: "Product Placement",
     note: "416 CustomKicks",
+    videoUrl: "https://www.youtube.com/watch?v=olE63lyc-gk",
   },
   {
     category: "Documentary / Edit",
     title: "YungPro Vlog",
     role: "Video Editor / Documentation",
     note: "Artist Documentary Episode",
+    videoUrl: "https://www.youtube.com/watch?v=bHzFK4RsvDo",
   },
 ];
