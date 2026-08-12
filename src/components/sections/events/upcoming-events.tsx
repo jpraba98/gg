@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { CalendarDays, MapPin, Newspaper } from "lucide-react";
 
@@ -70,7 +71,9 @@ export function UpcomingEvents() {
                   <span className="font-display text-3xl text-white/90">{event.name.split(" ").slice(0, 2).join(" ")}</span>
                 </div>
                 <div className="p-6">
-                  <h3 className="font-display text-xl text-white">{event.name}</h3>
+                  <Link href={`/events/${event.slug}`} className="hover:underline">
+                    <h3 className="font-display text-xl text-white">{event.name}</h3>
+                  </Link>
                   <div className="mt-3 space-y-1.5 text-sm text-text-secondary">
                     <p className="flex items-center gap-2">
                       <CalendarDays className="h-4 w-4 text-gold-500" />

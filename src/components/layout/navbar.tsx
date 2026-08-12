@@ -9,6 +9,8 @@ import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/shared/logo";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
+import { NavAuthSection } from "@/components/layout/nav-auth-section";
+import { MobileAuthLinks } from "@/components/layout/mobile-auth-links";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site-config";
 
@@ -58,7 +60,8 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-4 lg:flex">
+          <NavAuthSection accent={isEvents ? "gold" : "drip"} />
           <Button asChild variant={isEvents ? "gold" : "primary"} size="sm">
             <Link href="/services">Book Now</Link>
           </Button>
@@ -98,6 +101,7 @@ export function Navbar() {
               <Button asChild className="mt-3" variant={isEvents ? "gold" : "primary"}>
                 <Link href="/services">Book Now</Link>
               </Button>
+              <MobileAuthLinks />
             </Container>
           </motion.div>
         )}

@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       mode: "subscription",
       line_items: [{ price: priceId, quantity: 1 }],
       payment_method_types: ["card"],
-      success_url: `${origin}/members/dashboard?checkout=success`,
+      success_url: `${origin}/dashboard?checkout=success`,
       cancel_url: `${origin}/members?checkout=cancelled`,
     });
 

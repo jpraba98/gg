@@ -24,7 +24,6 @@ export const siteConfig = {
     { label: "Blog", href: "/blog" },
     { label: "Members", href: "/members" },
     { label: "About", href: "/about" },
-    { label: "Sponsor", href: "/sponsor" },
   ],
   stats: {
     events: "14+",

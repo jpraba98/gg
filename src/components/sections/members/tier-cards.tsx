@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Check, Gem } from "lucide-react";
 
@@ -9,11 +10,9 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { membershipTiers } from "@/data/membership";
 import { ETransferModal } from "@/components/sections/members/etransfer-modal";
-import { AuthModal } from "@/components/sections/members/auth-modal";
 
 export function TierCards() {
   const [etransferOpen, setEtransferOpen] = useState(false);
-  const [authOpen, setAuthOpen] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
@@ -40,18 +39,6 @@ export function TierCards() {
     }
   }
 
-  function handleJoin(tierId: string) {
-    if (tierId === "general") {
-      setAuthOpen(true);
-      return;
-    }
-    if (tierId === "dr-member") {
-      void handleStripeCheckout();
-      return;
-    }
-    setEtransferOpen(true);
-  }
-
   return (
     <>
       <div className="grid gap-6 lg:grid-cols-3">
@@ -74,11 +61,11 @@ export function TierCards() {
                   Most Popular
                 </span>
               )}
-              <Gem className="h-8 w-8 text-drip-500" />
+              <Gem className="h-8 w-8 text-drip-500" aria-hidden="true" />
               <h3 className="mt-5 font-display text-2xl text-white">{tier.name}</h3>
               <div className="mt-2 flex items-baseline gap-2">
                 <span className="font-display text-3xl text-white">{tier.monthly}</span>
-                {tier.monthly !== "Free" && (
+                {tier.id !== "general" && (
                   <span className="text-sm text-text-secondary">or {tier.yearly}</span>
                 )}
               </div>
@@ -86,22 +73,37 @@ export function TierCards() {
               <ul className="mt-6 flex-1 space-y-2.5">
                 {tier.perks.map((perk) => (
                   <li key={perk} className="flex items-start gap-2 text-sm text-text-secondary">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-drip-500" />
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-drip-500" aria-hidden="true" />
                     {perk}
                   </li>
                 ))}
               </ul>
 
-              <Button
-                className="mt-8 w-full"
-                variant={tier.highlighted ? "primary" : "outline"}
-                onClick={() => handleJoin(tier.id)}
-                disabled={tier.id === "dr-member" && checkoutLoading}
-              >
-                {tier.id === "dr-member" && checkoutLoading ? "Redirecting..." : "Join Now"}
-              </Button>
-              {tier.id === "dr-member" && checkoutError && (
-                <p className="mt-2 text-xs text-red-400">{checkoutError}</p>
+              {tier.id === "general" && (
+                <Button asChild className="mt-8 w-full" variant="outline">
+                  <Link href="/signup">Create Free Account</Link>
+                </Button>
+              )}
+              {tier.id === "dr-member" && (
+                <>
+                  <Button
+                    className="mt-8 w-full"
+                    onClick={handleStripeCheckout}
+                    disabled={checkoutLoading}
+                  >
+                    {checkoutLoading ? "Redirecting..." : "Upgrade Now"}
+                  </Button>
+                  {checkoutError && <p className="mt-2 text-xs text-red-400">{checkoutError}</p>}
+                </>
+              )}
+              {tier.id === "top-tier" && (
+                <Button
+                  className="mt-8 w-full"
+                  variant="outline"
+                  onClick={() => setEtransferOpen(true)}
+                >
+                  Upgrade Now
+                </Button>
               )}
             </Card>
           </motion.div>
@@ -109,7 +111,6 @@ export function TierCards() {
       </div>
 
       <ETransferModal open={etransferOpen} onOpenChange={setEtransferOpen} />
-      <AuthModal open={authOpen} onOpenChange={setAuthOpen} />
     </>
   );
 }
