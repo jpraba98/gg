@@ -135,7 +135,9 @@ language plpgsql
 security definer set search_path = public
 as $$
 begin
-  if not public.is_admin() then
+  -- auth.uid() is null when the change comes from the SQL Editor or the
+  -- service-role key (both trusted), so bootstrapping the first admin works.
+  if auth.uid() is not null and not public.is_admin() then
     if new.role is distinct from old.role or new.membership_tier is distinct from old.membership_tier then
       raise exception 'Only admins can change role or membership_tier';
     end if;

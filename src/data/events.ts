@@ -69,6 +69,15 @@ export const upcomingEvents: DripEvent[] = [
   },
 ];
 
+/** True until the end of the event's date (Toronto time is close enough to UTC-day for this). */
+export function isUpcoming(event: DripEvent, now: Date = new Date()): boolean {
+  return new Date(`${event.date}T23:59:59-05:00`).getTime() >= now.getTime();
+}
+
+export function getUpcomingEvents(now: Date = new Date()): DripEvent[] {
+  return upcomingEvents.filter((e) => isUpcoming(e, now));
+}
+
 export interface PastEvent {
   name: string;
   series?: string;
@@ -87,4 +96,5 @@ export const pastEvents: PastEvent[] = [
   { name: "6ixConnected", year: "2024" },
   { name: "Dreamz 2 Reality", year: "2024" },
   { name: "6ixclusive", year: "2025" },
+  { name: "Island Motion", season: "Vol. 1", year: "2026" },
 ];

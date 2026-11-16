@@ -2,15 +2,17 @@ import { Container } from "@/components/shared/container";
 
 export function CommunityStats({
   members,
+  membersLabel = "Members",
   articlesPublished,
   eventsCovered,
 }: {
   members: string;
+  membersLabel?: string;
   articlesPublished: number;
   eventsCovered: number;
 }) {
   const stats = [
-    { value: members, label: "Members" },
+    { value: members, label: membersLabel },
     { value: `${articlesPublished}+`, label: "Articles Published" },
     { value: `${eventsCovered}+`, label: "Events Covered" },
   ];

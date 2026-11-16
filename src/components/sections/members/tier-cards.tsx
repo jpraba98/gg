@@ -8,36 +8,11 @@ import { Check, Gem } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { membershipTiers } from "@/data/membership";
+import { membershipTiers, type MembershipTier } from "@/data/membership";
 import { ETransferModal } from "@/components/sections/members/etransfer-modal";
 
-export function TierCards() {
-  const [etransferOpen, setEtransferOpen] = useState(false);
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
-  const [checkoutError, setCheckoutError] = useState<string | null>(null);
-
-  async function handleStripeCheckout() {
-    setCheckoutLoading(true);
-    setCheckoutError(null);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan: "dr-member-monthly" }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.url) {
-        throw new Error(data.error ?? "Checkout unavailable");
-      }
-      window.location.href = data.url;
-    } catch (err) {
-      setCheckoutError(
-        err instanceof Error ? err.message : "Checkout unavailable right now.",
-      );
-    } finally {
-      setCheckoutLoading(false);
-    }
-  }
+export function TierCards({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
+  const [plan, setPlan] = useState<MembershipTier | null>(null);
 
   return (
     <>
@@ -84,25 +59,13 @@ export function TierCards() {
                   <Link href="/signup">Create Free Account</Link>
                 </Button>
               )}
-              {tier.id === "dr-member" && (
-                <>
-                  <Button
-                    className="mt-8 w-full"
-                    onClick={handleStripeCheckout}
-                    disabled={checkoutLoading}
-                  >
-                    {checkoutLoading ? "Redirecting..." : "Upgrade Now"}
-                  </Button>
-                  {checkoutError && <p className="mt-2 text-xs text-red-400">{checkoutError}</p>}
-                </>
-              )}
-              {tier.id === "top-tier" && (
+              {tier.id !== "general" && (
                 <Button
                   className="mt-8 w-full"
-                  variant="outline"
-                  onClick={() => setEtransferOpen(true)}
+                  variant={tier.highlighted ? "primary" : "outline"}
+                  onClick={() => setPlan(tier)}
                 >
-                  Upgrade Now
+                  Join with E-Transfer
                 </Button>
               )}
             </Card>
@@ -110,7 +73,12 @@ export function TierCards() {
         ))}
       </div>
 
-      <ETransferModal open={etransferOpen} onOpenChange={setEtransferOpen} />
+      <ETransferModal
+        open={plan !== null}
+        onOpenChange={(open) => !open && setPlan(null)}
+        plan={plan ?? undefined}
+        isLoggedIn={isLoggedIn}
+      />
     </>
   );
 }

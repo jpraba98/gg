@@ -1,4 +1,8 @@
-import { Copy } from "lucide-react";
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { Check, Copy } from "lucide-react";
 
 import {
   Dialog,
@@ -7,41 +11,102 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site-config";
+
+export interface ETransferPlan {
+  name: string;
+  monthly: string;
+  yearly: string;
+}
 
 export function ETransferModal({
   open,
   onOpenChange,
+  plan,
+  displayName,
+  isLoggedIn,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  plan?: ETransferPlan;
+  /** The member's display name, to put in the memo so staff can match the payment. */
+  displayName?: string | null;
+  isLoggedIn: boolean;
 }) {
+  const [copied, setCopied] = useState(false);
+
+  function copyEmail() {
+    navigator.clipboard.writeText(siteConfig.eTransferEmail).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>E-Transfer Instructions</DialogTitle>
+          <DialogTitle>{plan ? `Join ${plan.name}` : "Pay by E-Transfer"}</DialogTitle>
           <DialogDescription>
-            Prefer to pay by Interac e-Transfer? Send your membership payment to the email
-            below and include your name + tier in the memo.
+            Memberships are paid by Interac e-Transfer.
+            {plan && (
+              <>
+                {" "}
+                Send <span className="font-semibold text-white">{plan.monthly}</span> for a month or{" "}
+                <span className="font-semibold text-white">{plan.yearly}</span> for a full year.
+              </>
+            )}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex items-center justify-between rounded-lg border border-border bg-card px-4 py-3">
-          <span className="text-sm font-medium text-white">{siteConfig.eTransferEmail}</span>
-          <button
-            onClick={() => navigator.clipboard.writeText(siteConfig.eTransferEmail)}
-            className="text-text-secondary hover:text-drip-500"
-            aria-label="Copy email"
-          >
-            <Copy className="h-4 w-4" />
-          </button>
-        </div>
-
-        <p className="text-xs text-text-secondary">
-          Once received, we&apos;ll activate your membership within 24 hours and follow up by
-          email to confirm.
-        </p>
+        {!isLoggedIn ? (
+          <div className="space-y-4">
+            <p className="text-sm text-text-secondary">
+              Step 1 is a free account, so we have somewhere to put your perks. Create one, then
+              come back here to pay.
+            </p>
+            <Button asChild className="w-full">
+              <Link href="/signup">Create Free Account</Link>
+            </Button>
+            <p className="text-center text-xs text-text-secondary">
+              Already have one?{" "}
+              <Link href="/login?next=/members" className="text-drip-500 hover:underline">
+                Log in
+              </Link>
+            </p>
+          </div>
+        ) : (
+          <>
+            <ol className="space-y-3 text-sm text-text-secondary">
+              <li>
+                <span className="font-semibold text-white">1.</span> Send your e-Transfer to:
+              </li>
+            </ol>
+            <div className="flex items-center justify-between rounded-lg border border-border bg-card px-4 py-3">
+              <span className="text-sm font-medium text-white">{siteConfig.eTransferEmail}</span>
+              <button
+                onClick={copyEmail}
+                className="text-text-secondary hover:text-drip-500"
+                aria-label="Copy email"
+              >
+                {copied ? <Check className="h-4 w-4 text-drip-500" /> : <Copy className="h-4 w-4" />}
+              </button>
+            </div>
+            <ol className="space-y-3 text-sm text-text-secondary">
+              <li>
+                <span className="font-semibold text-white">2.</span> In the message/memo, write:
+                <span className="mt-1 block rounded-md border border-border bg-card px-3 py-2 font-mono text-xs text-white">
+                  {(displayName || "Your display name") + (plan ? ` — ${plan.name}` : "")}
+                </span>
+              </li>
+              <li>
+                <span className="font-semibold text-white">3.</span> We activate your tier within
+                24 hours. It&apos;ll show on your dashboard.
+              </li>
+            </ol>
+          </>
+        )}
       </DialogContent>
     </Dialog>
   );

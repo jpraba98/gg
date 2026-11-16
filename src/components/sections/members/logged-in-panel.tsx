@@ -52,7 +52,7 @@ export function LoggedInPanel({
             </Button>
           </Card>
 
-          <UpgradeCta tier={profile.membershipTier} />
+          <UpgradeCta tier={profile.membershipTier} displayName={profile.displayName} />
 
           {applications.length > 0 && (
             <Card className="p-6">

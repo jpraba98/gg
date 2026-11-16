@@ -56,6 +56,7 @@ export default async function MembersPage() {
 
       <CommunityStats
         members={stats.members}
+        membersLabel={stats.membersLabel}
         articlesPublished={stats.articlesPublished}
         eventsCovered={stats.eventsCovered}
       />

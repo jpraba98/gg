@@ -3,13 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { CalendarDays, MapPin, Newspaper } from "lucide-react";
+import { CalendarDays, Heart, MapPin, Newspaper } from "lucide-react";
 
 import { Container } from "@/components/shared/container";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { upcomingEvents } from "@/data/events";
+import { getUpcomingEvents, homeFeature } from "@/data/events";
 import { cn } from "@/lib/utils";
 
 const filters = ["All", "Showcases", "Networking", "Members Only"] as const;
@@ -17,7 +17,7 @@ const filters = ["All", "Showcases", "Networking", "Members Only"] as const;
 export function UpcomingEvents() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("All");
 
-  const events = upcomingEvents.filter(
+  const events = getUpcomingEvents().filter(
     (event) => filter === "All" || event.category === filter,
   );
 
@@ -41,8 +41,28 @@ export function UpcomingEvents() {
           </Tabs>
         </div>
 
-        {events.length === 0 && (
+        {events.length === 0 && filter !== "All" && (
           <p className="text-text-secondary">No events in this category right now — check back soon.</p>
+        )}
+
+        {events.length === 0 && filter === "All" && (
+          <Card className="max-w-xl border-gold-500/40 p-8">
+            <p className="section-label-gold">Up Next</p>
+            <h3 className="mt-3 font-display text-3xl uppercase text-white">
+              {homeFeature.name}
+              {homeFeature.season && <span className="text-gold-500"> {homeFeature.season}</span>}
+            </h3>
+            <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-gold-500/40 bg-gold-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gold-400">
+              <Heart className="h-3.5 w-3.5" aria-hidden="true" />
+              {homeFeature.status}
+            </p>
+            <p className="mt-4 text-sm text-text-secondary">{homeFeature.blurb}</p>
+            <Button asChild variant="gold" className="mt-6">
+              <a href={homeFeature.ctaHref} target="_blank" rel="noopener noreferrer">
+                {homeFeature.ctaLabel}
+              </a>
+            </Button>
+          </Card>
         )}
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

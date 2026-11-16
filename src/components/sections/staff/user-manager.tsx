@@ -7,6 +7,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { createClient } from "@/lib/supabase/client";
 
 const ROLES = ["member", "staff", "admin"] as const;
+const TIERS = [
+  { value: "free", label: "Free" },
+  { value: "member", label: "Member ($5)" },
+  { value: "top_tier", label: "Top Tier ($10)" },
+] as const;
 
 interface ProfileRow {
   id: string;
@@ -49,6 +54,20 @@ export function UserManager({ currentUserId }: { currentUserId: string }) {
     load();
   }
 
+  async function changeTier(id: string, membership_tier: string) {
+    if (!supabase) return;
+    setError(null);
+    const { error: updateError } = await supabase
+      .from("profiles")
+      .update({ membership_tier })
+      .eq("id", id);
+    if (updateError) {
+      setError(updateError.message);
+      return;
+    }
+    load();
+  }
+
   if (!supabase) {
     return <p className="text-sm text-text-secondary">Supabase isn&apos;t configured.</p>;
   }
@@ -57,7 +76,8 @@ export function UserManager({ currentUserId }: { currentUserId: string }) {
     <div>
       <h3 className="font-display text-xl text-white">User Manager</h3>
       <p className="mt-1 text-sm text-text-secondary">
-        Assign or revoke staff/admin access. Only admins can see this tab.
+        Set each member&apos;s tier once their e-transfer lands, and assign or revoke staff/admin
+        access. Only admins can see this tab.
       </p>
 
       {error && <p className="mt-2 text-sm text-red-400">{error}</p>}
@@ -65,17 +85,43 @@ export function UserManager({ currentUserId }: { currentUserId: string }) {
 
       <Card className="mt-4 divide-y divide-border p-0">
         {profiles.map((profile) => (
-          <div key={profile.id} className="flex items-center justify-between gap-3 px-6 py-4">
+          <div
+            key={profile.id}
+            className="flex flex-col gap-3 px-6 py-4 sm:flex-row sm:items-center sm:justify-between"
+          >
             <div className="min-w-0">
               <p className="truncate font-medium text-white">{profile.display_name ?? "Member"}</p>
-              <p className="text-xs text-text-secondary">{profile.membership_tier}</p>
+              <p className="text-xs text-text-secondary">
+                Joined{" "}
+                {new Date(profile.created_at).toLocaleDateString("en-CA", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </p>
             </div>
+            <div className="flex shrink-0 gap-2">
+            <Select
+              value={profile.membership_tier}
+              onValueChange={(v) => changeTier(profile.id, v)}
+            >
+              <SelectTrigger className="w-40 shrink-0" aria-label="Membership tier">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {TIERS.map((t) => (
+                  <SelectItem key={t.value} value={t.value}>
+                    {t.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <Select
               value={profile.role}
               onValueChange={(v) => changeRole(profile.id, v as (typeof ROLES)[number])}
               disabled={profile.id === currentUserId}
             >
-              <SelectTrigger className="w-36 shrink-0">
+              <SelectTrigger className="w-36 shrink-0" aria-label="Role">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -86,6 +132,7 @@ export function UserManager({ currentUserId }: { currentUserId: string }) {
                 ))}
               </SelectContent>
             </Select>
+            </div>
           </div>
         ))}
       </Card>

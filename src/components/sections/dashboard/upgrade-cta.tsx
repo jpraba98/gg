@@ -5,33 +5,24 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ETransferModal } from "@/components/sections/members/etransfer-modal";
+import { membershipTiers, type MembershipTier as TierInfo } from "@/data/membership";
 import type { MembershipTier } from "@/lib/supabase/profile";
 
-export function UpgradeCta({ tier }: { tier: MembershipTier }) {
-  const [etransferOpen, setEtransferOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+const memberPlan = membershipTiers.find((t) => t.id === "dr-member")!;
+const topTierPlan = membershipTiers.find((t) => t.id === "top-tier")!;
+
+// Paid tiers are paid by Interac e-Transfer; an admin then sets the member's
+// tier from the staff panel's Users tab.
+export function UpgradeCta({
+  tier,
+  displayName,
+}: {
+  tier: MembershipTier;
+  displayName?: string | null;
+}) {
+  const [plan, setPlan] = useState<TierInfo | null>(null);
 
   if (tier === "top_tier") return null;
-
-  async function handleStripeCheckout() {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan: "dr-member-monthly" }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.url) throw new Error(data.error ?? "Checkout unavailable");
-      window.location.href = data.url;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Checkout unavailable right now.");
-    } finally {
-      setLoading(false);
-    }
-  }
 
   return (
     <>
@@ -45,20 +36,25 @@ export function UpgradeCta({ tier }: { tier: MembershipTier }) {
               ? "Upgrade for service discounts, early event access, and exclusive drops."
               : "Upgrade to Top Tier for priority booking and VIP event access."}
           </p>
-          {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
         </div>
-        <div className="flex shrink-0 gap-2">
+        <div className="flex shrink-0 flex-wrap gap-2">
           {tier === "free" && (
-            <Button size="sm" onClick={handleStripeCheckout} disabled={loading}>
-              {loading ? "Redirecting..." : "Upgrade to Member"}
+            <Button size="sm" onClick={() => setPlan(memberPlan)}>
+              Upgrade to Member
             </Button>
           )}
-          <Button size="sm" variant="outline" onClick={() => setEtransferOpen(true)}>
+          <Button size="sm" variant="outline" onClick={() => setPlan(topTierPlan)}>
             Upgrade to Top Tier
           </Button>
         </div>
       </Card>
-      <ETransferModal open={etransferOpen} onOpenChange={setEtransferOpen} />
+      <ETransferModal
+        open={plan !== null}
+        onOpenChange={(open) => !open && setPlan(null)}
+        plan={plan ?? undefined}
+        displayName={displayName}
+        isLoggedIn
+      />
     </>
   );
 }

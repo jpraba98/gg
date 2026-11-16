@@ -82,7 +82,7 @@ export default async function DashboardPage() {
         </div>
 
         <div className="mt-6">
-          <UpgradeCta tier={profile.membershipTier} />
+          <UpgradeCta tier={profile.membershipTier} displayName={profile.displayName} />
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">

@@ -21,13 +21,20 @@ export async function sendNotificationEmail({
 
   try {
     const resend = new Resend(apiKey);
-    await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL ?? "TheDripRoom6ix <onboarding@resend.dev>",
       to: notifyEmail,
       replyTo,
       subject,
       text: lines.join("\n"),
     });
+    // The Resend SDK reports rejections (bad key, unverified recipient, etc.)
+    // in the return value rather than throwing — surface them so the visitor
+    // sees an error instead of a false "sent".
+    if (error) {
+      console.error("Resend rejected the email:", error);
+      return { ok: false, error: "Failed to send notification email" };
+    }
     return { ok: true };
   } catch (error) {
     console.error("Failed to send email via Resend:", error);
