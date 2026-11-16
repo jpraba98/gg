@@ -21,6 +21,29 @@ export interface DripEvent {
   pressLabel?: string;
 }
 
+/**
+ * What the homepage promotes (hero "Up Next" pill + Featured Event strip).
+ * Kept separate from `upcomingEvents` so a teaser can run before a date,
+ * venue, or ticket link exists. Swap this object to change the feature.
+ */
+export interface HomeFeature {
+  name: string;
+  season?: string;
+  status: string;
+  blurb: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+export const homeFeature: HomeFeature = {
+  name: "Love in the 6ix",
+  season: "Season 3",
+  status: "Coming Soon",
+  blurb: "The series is back. Date, venue and tickets dropping soon — follow @thedriproom6ix so you don't miss it.",
+  ctaLabel: "Get Notified",
+  ctaHref: "https://instagram.com/thedriproom6ix",
+};
+
 export const upcomingEvents: DripEvent[] = [
   {
     slug: "island-motion-vol-1",

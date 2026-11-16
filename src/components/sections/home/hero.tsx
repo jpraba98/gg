@@ -7,10 +7,10 @@ import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { Logo } from "@/components/shared/logo";
-import { upcomingEvents } from "@/data/events";
+import { homeFeature } from "@/data/events";
 
 const title = "TORONTO'S CREATIVE ENGINE";
-const featuredEvent = upcomingEvents[0];
+const featuredEvent = homeFeature;
 
 const container: Variants = {
   hidden: {},
@@ -51,8 +51,8 @@ export function Hero() {
               className="mb-6 inline-flex items-center gap-2 rounded-full border border-drip-500/30 bg-drip-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-drip-400 transition-colors hover:border-drip-500/60 hover:text-drip-300"
             >
               <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-              Up Next: {featuredEvent.name.replace(/^A2M Presents /, "")} —{" "}
-              {featuredEvent.dateLabel.split(",")[1]?.trim()}
+              Up Next: {featuredEvent.name}
+              {featuredEvent.season ? ` ${featuredEvent.season}` : ""} — {featuredEvent.status}
             </Link>
           </motion.div>
         )}

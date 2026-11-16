@@ -1,20 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CalendarDays, MapPin } from "lucide-react";
+import { Heart } from "lucide-react";
 
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
-import { upcomingEvents } from "@/data/events";
+import { homeFeature } from "@/data/events";
 
 export function FeaturedEventStrip() {
-  const event = upcomingEvents[0];
-  if (!event) return null;
+  const feature = homeFeature;
+  if (!feature) return null;
+
+  const isExternal = feature.ctaHref.startsWith("http");
 
   return (
     <section className="relative overflow-hidden border-y border-border bg-surface py-16">
-      <div className="absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-motion-500/25 blur-[120px]" />
-      <div className="absolute -right-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-motion-500/15 blur-[120px]" />
+      <div className="absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-gold-500/20 blur-[120px]" />
+      <div className="absolute -right-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-gold-500/10 blur-[120px]" />
 
       <Container className="relative">
         <motion.div
@@ -22,29 +24,29 @@ export function FeaturedEventStrip() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-start justify-between gap-8 rounded-3xl border border-motion-500/30 bg-gradient-to-br from-motion-500/10 via-transparent to-transparent p-8 sm:p-10 lg:flex-row lg:items-center"
+          className="flex flex-col items-start justify-between gap-8 rounded-3xl border border-gold-500/30 bg-gradient-to-br from-gold-500/10 via-transparent to-transparent p-8 sm:p-10 lg:flex-row lg:items-center"
         >
           <div>
-            <p className="section-label-motion">Featured Event</p>
-            <h3 className="mt-3 font-display text-3xl text-white sm:text-4xl">
-              {event.name}
+            <p className="section-label-gold">Featured Event</p>
+            <h3 className="mt-3 font-display text-3xl uppercase text-white sm:text-4xl">
+              {feature.name}
+              {feature.season && <span className="text-gold-500"> {feature.season}</span>}
             </h3>
-            <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-text-secondary">
-              <span className="flex items-center gap-2">
-                <CalendarDays className="h-4 w-4 text-motion-400" />
-                {event.dateLabel}
-              </span>
-              <span className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-motion-400" />
-                {event.venue}, {event.address}
-              </span>
-            </div>
+            <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-gold-500/40 bg-gold-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gold-400">
+              <Heart className="h-3.5 w-3.5" aria-hidden="true" />
+              {feature.status}
+            </p>
+            <p className="mt-4 max-w-xl text-sm text-text-secondary">{feature.blurb}</p>
           </div>
 
-          <Button asChild variant="motion" size="lg" className="shrink-0">
-            <a href={event.ticketUrl} target="_blank" rel="noopener noreferrer">
-              Get Tickets
-            </a>
+          <Button asChild variant="gold" size="lg" className="shrink-0">
+            {isExternal ? (
+              <a href={feature.ctaHref} target="_blank" rel="noopener noreferrer">
+                {feature.ctaLabel}
+              </a>
+            ) : (
+              <a href={feature.ctaHref}>{feature.ctaLabel}</a>
+            )}
           </Button>
         </motion.div>
       </Container>
