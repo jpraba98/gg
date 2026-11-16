@@ -13,6 +13,9 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/site-config";
+import { membershipTiers } from "@/data/membership";
+
+const paidTiers = membershipTiers.filter((t) => t.id !== "general");
 
 export interface ETransferPlan {
   name: string;
@@ -47,16 +50,22 @@ export function ETransferModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{plan ? `Join ${plan.name}` : "Pay by E-Transfer"}</DialogTitle>
+          <DialogTitle>{plan ? `${plan.name}: Pay Once` : "Pay Once by E-Transfer"}</DialogTitle>
           <DialogDescription>
-            Memberships are paid by Interac e-Transfer.
-            {plan && (
+            A one-time Interac e-Transfer, no auto-renew.{" "}
+            {plan ? (
               <>
-                {" "}
-                Send <span className="font-semibold text-white">{plan.monthly}</span> for a month or{" "}
-                <span className="font-semibold text-white">{plan.yearly}</span> for a full year.
+                <span className="font-semibold text-white">{plan.monthly.replace("/month", "")}</span>{" "}
+                covers one month,{" "}
+                <span className="font-semibold text-white">{plan.yearly.replace("/year", "")}</span>{" "}
+                covers a full year.
               </>
-            )}
+            ) : (
+              paidTiers
+                .map((t) => `${t.name}: ${t.monthly.replace("/month", "")} a month or ${t.yearly.replace("/year", "")} a year`)
+                .join(" · ")
+            )}{" "}
+            Want it to renew automatically? Subscribe by card instead.
           </DialogDescription>
         </DialogHeader>
 
@@ -97,12 +106,14 @@ export function ETransferModal({
               <li>
                 <span className="font-semibold text-white">2.</span> In the message/memo, write:
                 <span className="mt-1 block rounded-md border border-border bg-card px-3 py-2 font-mono text-xs text-white">
-                  {(displayName || "Your display name") + (plan ? ` — ${plan.name}` : "")}
+                  {(displayName || "Your display name") +
+                    ` — ${plan ? plan.name : "tier"} — month or year`}
                 </span>
               </li>
               <li>
                 <span className="font-semibold text-white">3.</span> We activate your tier within
-                24 hours. It&apos;ll show on your dashboard.
+                24 hours. It&apos;ll show on your dashboard. When your time runs out, pay again to
+                renew.
               </li>
             </ol>
           </>

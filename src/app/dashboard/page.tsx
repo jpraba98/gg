@@ -29,7 +29,11 @@ const statusColor: Record<string, string> = {
   reviewed: "text-gold-500",
 };
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams?: { checkout?: string };
+}) {
   const profile = await requireMember();
   const { likes, comments, applications } = await getMemberActivity(profile.id);
 
@@ -80,6 +84,13 @@ export default async function DashboardPage() {
             </p>
           </Card>
         </div>
+
+        {searchParams?.checkout === "success" && (
+          <p className="mt-6 rounded-lg border border-drip-500/40 bg-drip-500/10 px-4 py-3 text-sm text-drip-400">
+            Payment received. Welcome in! Your new tier shows up here within a minute (refresh if
+            it hasn&apos;t yet).
+          </p>
+        )}
 
         <div className="mt-6">
           <UpgradeCta tier={profile.membershipTier} displayName={profile.displayName} />

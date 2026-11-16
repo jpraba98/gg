@@ -50,8 +50,11 @@ Promote teammates to `staff` the same way. Everyone else defaults to
 
 ## 6. Membership tiers
 
-`membership_tier` starts as `free` for every new signup. The Stripe
-checkout flow (`/api/checkout`) doesn't currently write back to Supabase —
-wire a Stripe webhook to update `profiles.membership_tier` when a
-subscription is created/cancelled if you want tier status to update
-automatically instead of manually.
+`membership_tier` starts as `free` for every new signup.
+
+- **Card subscriptions (Stripe):** `/api/checkout` starts a subscription and
+  `/api/stripe/webhook` sets the tier automatically when it starts, changes,
+  or is cancelled. Needs the `STRIPE_*` and `SUPABASE_SERVICE_ROLE_KEY` env
+  vars (see `.env.example`).
+- **One-time e-Transfer:** an admin sets the tier by hand in the staff
+  panel's Users tab.
