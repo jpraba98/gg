@@ -7,6 +7,7 @@ import { ProofOfWork } from "@/components/sections/services/proof-of-work";
 import { CatalogGrid } from "@/components/sections/services/catalog-grid";
 import { BookingForm } from "@/components/sections/services/booking-form";
 import { Container } from "@/components/shared/container";
+import { HashScroll } from "@/components/shared/hash-scroll";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
+      <HashScroll />
       <ServicesHero />
       <Bundles />
       <HypePacks />

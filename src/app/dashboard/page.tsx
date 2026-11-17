@@ -5,6 +5,7 @@ import { CalendarDays, Gem, Heart, MessageSquare, ClipboardList } from "lucide-r
 import { Container } from "@/components/shared/container";
 import { Card } from "@/components/ui/card";
 import { requireMember } from "@/lib/supabase/guards";
+import { getPendingCancellation } from "@/lib/stripe";
 import { getMemberActivity } from "@/lib/supabase/dashboard-data";
 import { AccountSettings } from "@/components/sections/dashboard/account-settings";
 import { UpgradeCta } from "@/components/sections/dashboard/upgrade-cta";
@@ -35,6 +36,8 @@ export default async function DashboardPage({
   searchParams?: { checkout?: string };
 }) {
   const profile = await requireMember();
+  const cancelsAt =
+    profile.membershipTier !== "free" ? await getPendingCancellation(profile.id) : null;
   const { likes, comments, applications } = await getMemberActivity(profile.id);
 
   return (
@@ -93,7 +96,11 @@ export default async function DashboardPage({
         )}
 
         <div className="mt-6">
-          <UpgradeCta tier={profile.membershipTier} displayName={profile.displayName} />
+          <UpgradeCta
+            tier={profile.membershipTier}
+            displayName={profile.displayName}
+            cancelsAt={cancelsAt}
+          />
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">

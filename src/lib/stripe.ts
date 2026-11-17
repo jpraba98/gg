@@ -56,3 +56,27 @@ export async function findCustomer(
     metadata: { supabase_user_id: userId },
   });
 }
+
+/**
+ * When a member has cancelled a card subscription that's still running,
+ * returns the date access ends (ISO string). Null if nothing is cancelling.
+ */
+export async function getPendingCancellation(userId: string): Promise<string | null> {
+  const stripe = getStripe();
+  if (!stripe) return null;
+  try {
+    const customer = await findCustomer(stripe, userId);
+    if (!customer) return null;
+    const subs = await stripe.subscriptions.list({ customer: customer.id, status: "active", limit: 10 });
+    // A member with any subscription that will keep renewing isn't "cancelling".
+    if (subs.data.some((s) => !s.cancel_at && !s.cancel_at_period_end)) return null;
+    const ends = subs.data
+      .map((s) => s.cancel_at ?? (s.cancel_at_period_end ? s.items.data[0]?.current_period_end : null))
+      .filter((t): t is number => typeof t === "number")
+      .sort((a, b) => b - a)[0];
+    return ends ? new Date(ends * 1000).toISOString() : null;
+  } catch (error) {
+    console.error("Couldn't read subscription status:", error);
+    return null;
+  }
+}

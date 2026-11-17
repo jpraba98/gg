@@ -21,9 +21,12 @@ const topTier = membershipTiers.find((t) => t.id === "top-tier")!;
 export function UpgradeCta({
   tier,
   displayName,
+  cancelsAt,
 }: {
   tier: MembershipTier;
   displayName?: string | null;
+  /** ISO date when a cancelled card subscription stops; shown as a notice. */
+  cancelsAt?: string | null;
 }) {
   const [billing, setBilling] = useState<Billing>("monthly");
   const [etransferOpen, setEtransferOpen] = useState(false);
@@ -59,6 +62,19 @@ export function UpgradeCta({
             </Button>
           )}
         </div>
+
+        {cancelsAt && tier !== "free" && (
+          <p className="mt-4 rounded-lg border border-gold-500/40 bg-gold-500/10 px-4 py-3 text-sm text-gold-400">
+            Your subscription is cancelled. You keep your perks until{" "}
+            {new Date(cancelsAt).toLocaleDateString("en-CA", {
+              timeZone: "America/Toronto",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+            . Changed your mind? Use Manage Billing to renew.
+          </p>
+        )}
 
         {tier !== "top_tier" && (
           <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
