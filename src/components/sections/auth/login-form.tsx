@@ -52,7 +52,9 @@ export function LoginForm({ redirectTo = "/dashboard" }: { redirectTo?: string }
     setResetting(true);
     setServerError(null);
     const { error } = await supabase!.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/reset-password`,
+      // Goes through /auth/callback so the emailed code becomes a signed-in
+      // session before the reset page asks for a new password.
+      redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`,
     });
     setResetting(false);
     if (error) {

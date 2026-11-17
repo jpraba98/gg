@@ -7,12 +7,19 @@ import { createClient } from "@/lib/supabase/server";
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = request.nextUrl;
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/dashboard";
+  const rawNext = searchParams.get("next") ?? "/dashboard";
+  // Only allow same-site paths, never an external redirect.
+  const next = rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/dashboard";
 
   if (code) {
     const supabase = createClient();
     if (supabase) {
-      await supabase.auth.exchangeCodeForSession(code);
+      const { error } = await supabase.auth.exchangeCodeForSession(code);
+      if (error) {
+        console.error("Auth callback code exchange failed:", error.message);
+        const target = next === "/reset-password" ? "/reset-password?expired=1" : "/login?error=link";
+        return NextResponse.redirect(`${origin}${target}`);
+      }
     }
   }
 

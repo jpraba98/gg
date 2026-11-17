@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -29,6 +30,28 @@ export function ResetPasswordForm() {
   const supabase = createClient();
   const [serverError, setServerError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
+  // null = still checking; false = no valid reset session (expired/used link)
+  const [hasSession, setHasSession] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (!supabase) return;
+    let cancelled = false;
+    (async () => {
+      const params = new URLSearchParams(window.location.search);
+      // Reset emails sent before the /auth/callback change land here with ?code=
+      const code = params.get("code");
+      if (code) {
+        await supabase.auth.exchangeCodeForSession(code);
+        window.history.replaceState(null, "", "/reset-password");
+      }
+      const { data } = await supabase.auth.getSession();
+      if (!cancelled) setHasSession(params.get("expired") ? false : Boolean(data.session));
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const {
     register,
@@ -49,6 +72,28 @@ export function ResetPasswordForm() {
     }
     setDone(true);
     setTimeout(() => router.push("/dashboard"), 1500);
+  }
+
+  if (hasSession === null) {
+    return <p className="text-sm text-text-secondary">Checking your reset link...</p>;
+  }
+
+  if (hasSession === false) {
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-red-400">
+          This reset link has expired or was already used, or it was opened in a different
+          browser from the one you requested it in.
+        </p>
+        <Button asChild className="w-full">
+          <Link href="/login">Request a new link</Link>
+        </Button>
+        <p className="text-xs text-text-secondary">
+          Tip: open the email link on the same device and browser where you clicked
+          &quot;Forgot password&quot;.
+        </p>
+      </div>
+    );
   }
 
   if (done) {
