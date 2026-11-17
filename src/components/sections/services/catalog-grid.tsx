@@ -25,7 +25,7 @@ export function CatalogGrid() {
         <div className="mb-10">
           <p className="section-label">Full Catalog</p>
           <h2 className="mt-3 font-display text-3xl text-white sm:text-4xl">
-            Everything Else
+            Every Service, Every Price
           </h2>
         </div>
 
