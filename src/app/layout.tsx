@@ -42,6 +42,11 @@ export const metadata: Metadata = {
     locale: "en_CA",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: "Events. Talent. Media. Culture.",
+  },
 };
 
 export default function RootLayout({
