@@ -5,33 +5,33 @@ import type { YouTubeVideo } from "@/types/youtube";
 export const revalidate = 3600;
 
 // Shown until YOUTUBE_API_KEY is set (or if the API call fails): real videos
-// from TheDripRoom6ix's credits, so the Media page is never empty or broken.
+// from TheDripRoom6ix's credits (titles checked against YouTube, Nov 2026), so the Media page is never empty or broken.
 const yt = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 const FALLBACK_VIDEOS: YouTubeVideo[] = [
   {
     id: "cApqBl8g1vY",
-    title: "Stars Align — Industry Artist Showcase",
+    title: "YungPro — Glocky (Official Music Video)",
     thumbnail: yt("cApqBl8g1vY"),
     publishedAt: "",
-    category: "Event Recaps",
+    category: "Music Videos",
   },
   {
     id: "oHRBXZze-J8",
-    title: "Dope Boy DQ — Music Video",
+    title: "DopeBoy DQ — Thrill ft. Klay Kodak",
     thumbnail: yt("oHRBXZze-J8"),
     publishedAt: "",
     category: "Music Videos",
   },
   {
     id: "olE63lyc-gk",
-    title: "Buggz — Music Video (416 CustomKicks placement)",
+    title: "Buggz — No Discussion (Official Music Video)",
     thumbnail: yt("olE63lyc-gk"),
     publishedAt: "",
     category: "Music Videos",
   },
   {
     id: "bHzFK4RsvDo",
-    title: "YungPro — Artist Documentary Vlog",
+    title: "YungProTV — Episode 4: I Earned This",
     thumbnail: yt("bHzFK4RsvDo"),
     publishedAt: "",
     category: "Behind the Scenes",

@@ -43,7 +43,8 @@ export const industryCredits: IndustryCredit[] = [
     title: "Stars Align (Seasons 1–5)",
     role: "Lead Partner / Marketing",
     note: "Industry Artist Showcase Series",
-    videoUrl: "https://www.youtube.com/watch?v=cApqBl8g1vY",
+    // Old link (cApqBl8g1vY) is YungPro "Glocky", not Stars Align; add a real
+    // Stars Align recap video here when available.
   },
   {
     category: "Featured Event",
