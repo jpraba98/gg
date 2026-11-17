@@ -54,6 +54,8 @@ function SingleComment({
   const [editBody, setEditBody] = useState(comment.body);
   const [deleted, setDeleted] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [actionError, setActionError] = useState<string | null>(null);
 
   if (deleted) return null;
 
@@ -92,11 +94,29 @@ function SingleComment({
   }
 
   async function handleDelete() {
-    if (!supabase) return;
     setBusy(true);
-    const { error } = await supabase.from("comments").delete().eq("id", comment.id);
-    setBusy(false);
-    if (!error) setDeleted(true);
+    setActionError(null);
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), 12000);
+    try {
+      const res = await fetch(`/api/comments?id=${encodeURIComponent(comment.id)}`, {
+        method: "DELETE",
+        signal: controller.signal,
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error ?? "Couldn't delete the comment.");
+      setDeleted(true);
+    } catch (err) {
+      setActionError(
+        err instanceof Error && err.name !== "AbortError"
+          ? err.message
+          : "That took too long. Check your connection and try again.",
+      );
+    } finally {
+      window.clearTimeout(timer);
+      setBusy(false);
+      setConfirmingDelete(false);
+    }
   }
 
   const reportHref = `mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent(
@@ -142,10 +162,25 @@ function SingleComment({
               <Pencil className="h-3 w-3" aria-hidden="true" />
               Edit
             </button>
-            <button onClick={handleDelete} disabled={busy} className="inline-flex items-center gap-1 hover:text-red-400">
-              <Trash2 className="h-3 w-3" aria-hidden="true" />
-              Delete
-            </button>
+            {confirmingDelete ? (
+              <span className="inline-flex items-center gap-2">
+                <span className="text-red-400">Delete this comment?</span>
+                <button onClick={handleDelete} disabled={busy} className="font-semibold text-red-400 hover:underline">
+                  {busy ? "Deleting..." : "Yes, delete"}
+                </button>
+                <button onClick={() => setConfirmingDelete(false)} disabled={busy} className="hover:text-white">
+                  Cancel
+                </button>
+              </span>
+            ) : (
+              <button
+                onClick={() => setConfirmingDelete(true)}
+                className="inline-flex items-center gap-1 hover:text-red-400"
+              >
+                <Trash2 className="h-3 w-3" aria-hidden="true" />
+                Delete
+              </button>
+            )}
           </>
         )}
         {!comment.isMine && (
@@ -155,6 +190,8 @@ function SingleComment({
           </a>
         )}
       </div>
+
+      {actionError && <p className="mt-1 text-xs text-red-400">{actionError}</p>}
 
       {replying && (
         <div className="mt-3 space-y-2">

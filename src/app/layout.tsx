@@ -35,8 +35,9 @@ export const metadata: Metadata = {
     "Toronto media production",
   ],
   openGraph: {
-    title: siteConfig.name,
-    description: "Events. Talent. Media. Culture.",
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    description:
+      "Toronto events, artist management and media promo. Book a service, catch the next event, or join the community.",
     url: `https://${siteConfig.domain}`,
     siteName: siteConfig.name,
     locale: "en_CA",
@@ -44,8 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
-    description: "Events. Talent. Media. Culture.",
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    description:
+      "Toronto events, artist management and media promo. Book a service, catch the next event, or join the community.",
   },
 };
 
