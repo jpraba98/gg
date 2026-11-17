@@ -64,7 +64,7 @@ export async function getComments(contentType: ContentType, contentId: string): 
     .eq("content_id", contentId)
     .order("created_at", { ascending: true });
 
-  const rows = (data ?? []) as unknown as Array<{
+  const allRows = (data ?? []) as unknown as Array<{
     id: string;
     body: string;
     status: "pending" | "approved" | "hidden";
@@ -73,6 +73,10 @@ export async function getComments(contentType: ContentType, contentId: string): 
     user_id: string;
     profiles: { display_name: string | null; role: "member" | "staff" | "admin" } | null;
   }>;
+
+  // Hidden comments leave the post for everyone (staff included); staff still
+  // see and restore them in /staff → Comments.
+  const rows = allRows.filter((r) => r.status !== "hidden");
 
   const toCommentRow = (row: (typeof rows)[number]): CommentRow => ({
     id: row.id,
