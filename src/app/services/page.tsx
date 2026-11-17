@@ -20,10 +20,10 @@ export default function ServicesPage() {
     <>
       <HashScroll />
       <ServicesHero />
-      <Bundles />
-      <HypePacks />
-      <ProofOfWork />
       <CatalogGrid />
+      <HypePacks />
+      <Bundles />
+      <ProofOfWork />
       <section id="book" className="scroll-mt-24 border-t border-border py-24">
         <Container>
           <BookingForm />
