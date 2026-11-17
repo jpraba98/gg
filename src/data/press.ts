@@ -20,8 +20,11 @@ export const pressFeatures: PressFeature[] = [
     title: "Stars Align in the 6ix — Season 4",
     url: "https://www.blogto.com/events/stars-align-in-the-6ix-toronto/",
   },
-  // Season 6 listing (blogto.com/events/stars-align-in-the-6ix-season-6-toronto/)
-  // removed: that event was cancelled, so it isn't credited as press.
+  {
+    outlet: "BlogTO",
+    title: "Stars Align in the 6ix — Season 6",
+    url: "https://www.blogto.com/events/stars-align-in-the-6ix-season-6-toronto/",
+  },
   // PlayMoreEnt "Sandalwood Parkway" article removed: the URL 404s (checked
   // Nov 17, 2026). Add it back here with a working link.
 ];
