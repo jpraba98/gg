@@ -203,7 +203,7 @@ create table if not exists public.comments (
   user_id uuid not null references public.profiles (id) on delete cascade,
   body text not null,
   parent_id uuid references public.comments (id) on delete cascade,
-  status public.moderation_status not null default 'pending',
+  status public.moderation_status not null default 'approved',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

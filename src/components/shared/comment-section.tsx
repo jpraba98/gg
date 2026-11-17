@@ -71,6 +71,8 @@ function SingleComment({
       content_type: contentType,
       content_id: contentId,
       user_id: user.id,
+      // Comments post publicly right away; staff can hide them in /staff → Comments.
+      status: "approved",
       body: replyBody.trim(),
       parent_id: comment.id,
     });
@@ -230,6 +232,8 @@ export function CommentSection({
       content_type: contentType,
       content_id: contentId,
       user_id: user.id,
+      // Comments post publicly right away; staff can hide them in /staff → Comments.
+      status: "approved",
       body: newComment.trim(),
     });
     setBusy(false);
@@ -269,7 +273,7 @@ export function CommentSection({
               {busy ? "Posting..." : "Post Comment"}
             </Button>
             <p className="text-xs text-text-secondary">
-              Comments are reviewed before appearing publicly.
+              Keep it respectful. Staff can hide comments that break the vibe.
             </p>
           </div>
         ) : (
