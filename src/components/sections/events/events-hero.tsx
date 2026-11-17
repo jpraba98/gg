@@ -1,10 +1,11 @@
 import { Container } from "@/components/shared/container";
 import { Logo } from "@/components/shared/logo";
+import { Glow } from "@/components/shared/glow";
 
 export function EventsHero() {
   return (
     <section className="relative overflow-hidden border-b border-border bg-obsidian py-24">
-      <div className="absolute left-1/2 top-0 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-gold-500/15 blur-[130px]" />
+      <Glow color="gold" opacity={0.15} size={680} className="left-1/2 -top-[130px] -translate-x-1/2" />
       <Container className="relative flex flex-col items-center text-center">
         <Logo variant="gold" showWordmark={false} size="lg" className="mb-6" />
         <p className="section-label-gold">Events</p>

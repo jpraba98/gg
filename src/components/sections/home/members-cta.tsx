@@ -6,6 +6,7 @@ import { Gem } from "lucide-react";
 
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
+import { Glow } from "@/components/shared/glow";
 
 export function MembersCta() {
   return (
@@ -18,7 +19,7 @@ export function MembersCta() {
           transition={{ duration: 0.6 }}
           className="relative overflow-hidden rounded-3xl border border-drip-500/30 bg-gradient-to-br from-drip-500/15 via-surface to-surface p-10 text-center sm:p-16"
         >
-          <div className="absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-drip-500/25 blur-[120px]" />
+          <Glow color="drip" opacity={0.25} size={496} className="left-1/2 top-0 -translate-x-1/2 -translate-y-1/2" />
           <Gem className="relative mx-auto h-10 w-10 text-drip-500" />
           <h2 className="relative mt-6 font-display text-4xl text-white sm:text-5xl">
             Join TheDripRoom6ix Community

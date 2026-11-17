@@ -6,6 +6,7 @@ import { CalendarDays, MapPin, Clock, IdCard, Ticket, Mic2, Newspaper } from "lu
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 import type { DripEvent } from "@/data/events";
+import { Glow } from "@/components/shared/glow";
 
 export function EventDetailContent({ event, eyebrow = "Featured" }: { event: DripEvent; eyebrow?: string }) {
   const details = [
@@ -18,7 +19,7 @@ export function EventDetailContent({ event, eyebrow = "Featured" }: { event: Dri
 
   return (
     <section className="relative overflow-hidden border-y border-motion-500/30 bg-gradient-to-b from-motion-500/10 via-obsidian to-obsidian py-24">
-      <div className="absolute -right-32 top-0 h-96 w-96 rounded-full bg-motion-500/25 blur-[150px]" />
+      <Glow color="motion" opacity={0.25} size={684} className="-right-[278px] -top-[150px]" />
 
       <Container className="relative">
         <motion.div

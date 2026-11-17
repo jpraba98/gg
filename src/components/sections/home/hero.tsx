@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/container";
 import { Logo } from "@/components/shared/logo";
 import { homeFeature } from "@/data/events";
+import { Glow } from "@/components/shared/glow";
 
 const title = "TORONTO'S CREATIVE ENGINE";
 const featuredEvent = homeFeature;
@@ -28,7 +29,7 @@ export function Hero() {
   return (
     <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-obsidian">
       <div className="absolute inset-0 bg-grid-pattern bg-[size:64px_64px] opacity-40" />
-      <div className="absolute left-1/2 top-0 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-drip-500/20 blur-[140px]" />
+      <Glow color="drip" opacity={0.2} size={800} className="left-1/2 -top-[140px] -translate-x-1/2" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-obsidian" />
 
       <Container className="relative flex flex-col items-center py-32 text-center">

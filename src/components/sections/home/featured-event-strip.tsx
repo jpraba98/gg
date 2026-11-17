@@ -6,6 +6,7 @@ import { Heart } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 import { homeFeature } from "@/data/events";
+import { Glow } from "@/components/shared/glow";
 
 export function FeaturedEventStrip() {
   const feature = homeFeature;
@@ -15,8 +16,8 @@ export function FeaturedEventStrip() {
 
   return (
     <section className="relative overflow-hidden border-y border-border bg-surface py-16">
-      <div className="absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-gold-500/20 blur-[120px]" />
-      <div className="absolute -right-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-gold-500/10 blur-[120px]" />
+      <Glow color="gold" opacity={0.2} size={528} className="-left-[216px] top-1/2 -translate-y-1/2" />
+      <Glow color="gold" opacity={0.1} size={528} className="-right-[216px] top-1/2 -translate-y-1/2" />
 
       <Container className="relative">
         <motion.div

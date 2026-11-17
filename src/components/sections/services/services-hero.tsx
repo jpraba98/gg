@@ -1,9 +1,10 @@
 import { Container } from "@/components/shared/container";
+import { Glow } from "@/components/shared/glow";
 
 export function ServicesHero() {
   return (
     <section className="relative overflow-hidden border-b border-border py-24">
-      <div className="absolute left-1/2 top-0 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-drip-500/15 blur-[130px]" />
+      <Glow color="drip" opacity={0.15} size={680} className="left-1/2 -top-[130px] -translate-x-1/2" />
       <Container className="relative text-center">
         <p className="section-label">Services</p>
         <h1 className="mx-auto mt-3 max-w-3xl font-display text-5xl text-white sm:text-6xl">
