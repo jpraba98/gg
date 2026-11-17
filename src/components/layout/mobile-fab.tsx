@@ -47,7 +47,7 @@ export function MobileFab() {
 
       <div className="flex border-t border-border bg-obsidian/95 backdrop-blur-lg">
         <Link
-          href="/services"
+          href="/services#book"
           className="flex flex-1 items-center justify-center gap-2 border-r border-border py-4 text-xs font-semibold uppercase tracking-wide text-drip-500"
         >
           <Sparkles className="h-4 w-4" aria-hidden="true" />

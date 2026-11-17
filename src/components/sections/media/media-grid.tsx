@@ -29,7 +29,7 @@ function VideoModal({ video, onClose }: { video: YouTubeVideo; onClose: () => vo
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-h-[90vh] max-w-3xl overflow-y-auto p-2">
         <DialogTitle className="sr-only">{video.title}</DialogTitle>
-        {!video.id.startsWith("placeholder") ? (
+        {video.id ? (
           <div className="aspect-video overflow-hidden rounded-xl">
             <iframe
               className="h-full w-full"
@@ -153,6 +153,7 @@ export function MediaGrid() {
                 <div className="relative aspect-video overflow-hidden bg-card">
                   <Image
                     src={video.thumbnail}
+                    unoptimized
                     alt={video.title}
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -172,6 +173,28 @@ export function MediaGrid() {
               </Card>
             </motion.button>
           ))}
+
+        {!isLoading && isInstagram && (postData?.posts ?? []).length === 0 && (
+          <a
+            href="https://instagram.com/thedriproom6ix"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="col-span-full"
+          >
+            <Card className="card-lift flex flex-col items-start gap-3 p-8 hover:border-drip-500/50 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="font-display text-2xl text-white">@thedriproom6ix</p>
+                <p className="mt-1 text-sm text-text-secondary">
+                  Daily drops, event clips and city updates live on our Instagram.
+                </p>
+              </div>
+              <span className="inline-flex items-center gap-2 text-sm font-semibold text-drip-500">
+                Follow on Instagram
+                <ExternalLink className="h-4 w-4" aria-hidden="true" />
+              </span>
+            </Card>
+          </a>
+        )}
 
         {!isLoading &&
           isInstagram &&

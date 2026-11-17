@@ -4,30 +4,37 @@ import type { YouTubeVideo } from "@/types/youtube";
 
 export const revalidate = 3600;
 
-const PLACEHOLDER_VIDEOS: YouTubeVideo[] = [
+// Shown until YOUTUBE_API_KEY is set (or if the API call fails): real videos
+// from TheDripRoom6ix's credits, so the Media page is never empty or broken.
+const yt = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+const FALLBACK_VIDEOS: YouTubeVideo[] = [
   {
-    id: "placeholder-1",
-    title: "Stars Align S5 — Official Recap",
-    thumbnail: "https://placehold.co/640x360/111111/5BC8F5?text=The+Drip+Room",
-    publishedAt: "2 weeks ago",
-    viewCount: "1.2K",
+    id: "cApqBl8g1vY",
+    title: "Stars Align — Industry Artist Showcase",
+    thumbnail: yt("cApqBl8g1vY"),
+    publishedAt: "",
     category: "Event Recaps",
   },
   {
-    id: "placeholder-2",
-    title: "6ixclusive — Behind the Scenes",
-    thumbnail: "https://placehold.co/640x360/111111/5BC8F5?text=The+Drip+Room",
-    publishedAt: "1 month ago",
-    viewCount: "890",
-    category: "Behind the Scenes",
+    id: "oHRBXZze-J8",
+    title: "Dope Boy DQ — Music Video",
+    thumbnail: yt("oHRBXZze-J8"),
+    publishedAt: "",
+    category: "Music Videos",
   },
   {
-    id: "placeholder-3",
-    title: "Artist Spotlight — Topman Meeko",
-    thumbnail: "https://placehold.co/640x360/111111/5BC8F5?text=The+Drip+Room",
-    publishedAt: "1 month ago",
-    viewCount: "2.4K",
-    category: "Interviews",
+    id: "olE63lyc-gk",
+    title: "Buggz — Music Video (416 CustomKicks placement)",
+    thumbnail: yt("olE63lyc-gk"),
+    publishedAt: "",
+    category: "Music Videos",
+  },
+  {
+    id: "bHzFK4RsvDo",
+    title: "YungPro — Artist Documentary Vlog",
+    thumbnail: yt("bHzFK4RsvDo"),
+    publishedAt: "",
+    category: "Behind the Scenes",
   },
 ];
 
@@ -37,7 +44,7 @@ export async function GET(req: NextRequest) {
   const handle = process.env.YOUTUBE_CHANNEL_HANDLE ?? "thedriproom6ix";
 
   if (!apiKey) {
-    return NextResponse.json({ videos: PLACEHOLDER_VIDEOS.slice(0, limit), source: "placeholder" });
+    return NextResponse.json({ videos: FALLBACK_VIDEOS.slice(0, limit), source: "fallback" });
   }
 
   try {
@@ -50,7 +57,7 @@ export async function GET(req: NextRequest) {
       channelData?.items?.[0]?.contentDetails?.relatedPlaylists?.uploads;
 
     if (!uploadsPlaylistId) {
-      return NextResponse.json({ videos: PLACEHOLDER_VIDEOS.slice(0, limit), source: "placeholder" });
+      return NextResponse.json({ videos: FALLBACK_VIDEOS.slice(0, limit), source: "fallback" });
     }
 
     const playlistRes = await fetch(
@@ -80,8 +87,11 @@ export async function GET(req: NextRequest) {
       }),
     }));
 
+    if (videos.length === 0) {
+      return NextResponse.json({ videos: FALLBACK_VIDEOS.slice(0, limit), source: "fallback" });
+    }
     return NextResponse.json({ videos, source: "youtube" });
   } catch {
-    return NextResponse.json({ videos: PLACEHOLDER_VIDEOS.slice(0, limit), source: "placeholder" });
+    return NextResponse.json({ videos: FALLBACK_VIDEOS.slice(0, limit), source: "fallback" });
   }
 }

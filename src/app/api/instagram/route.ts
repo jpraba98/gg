@@ -4,18 +4,11 @@ import type { InstagramPost } from "@/types/instagram";
 
 export const revalidate = 3600;
 
-// TODO: Instagram Graph API requires @thedriproom6ix to be connected to a
-// Facebook Business account, with INSTAGRAM_ACCESS_TOKEN and
-// INSTAGRAM_USER_ID set (see .env.example). Until then this route falls
-// back to placeholder posts so the UI still renders.
-const PLACEHOLDER_POSTS: InstagramPost[] = Array.from({ length: 6 }).map((_, i) => ({
-  id: `placeholder-${i + 1}`,
-  mediaUrl: `https://placehold.co/640x640/111111/5BC8F5?text=The+Drip+Room`,
-  caption: "Connect the Instagram Graph API to show live posts here.",
-  permalink: "https://instagram.com/thedriproom6ix",
-  timestamp: new Date().toISOString(),
-  mediaType: "IMAGE",
-}));
+// Instagram Graph API needs @thedriproom6ix connected to a Facebook Business
+// account, with INSTAGRAM_ACCESS_TOKEN and INSTAGRAM_USER_ID set (see
+// .env.example). Until then this returns no posts and the Media page shows a
+// "Follow on Instagram" card instead of fake placeholder posts.
+const NO_POSTS: InstagramPost[] = [];
 
 export async function GET(req: NextRequest) {
   const limit = Number(req.nextUrl.searchParams.get("limit") ?? 12);
@@ -23,7 +16,7 @@ export async function GET(req: NextRequest) {
   const userId = process.env.INSTAGRAM_USER_ID;
 
   if (!accessToken || !userId) {
-    return NextResponse.json({ posts: PLACEHOLDER_POSTS.slice(0, limit), source: "placeholder" });
+    return NextResponse.json({ posts: NO_POSTS, source: "not_connected" });
   }
 
   try {
@@ -34,7 +27,7 @@ export async function GET(req: NextRequest) {
     );
 
     if (!res.ok) {
-      return NextResponse.json({ posts: PLACEHOLDER_POSTS.slice(0, limit), source: "placeholder" });
+      return NextResponse.json({ posts: NO_POSTS, source: "not_connected" });
     }
 
     const data = await res.json();
@@ -63,6 +56,6 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ posts, source: "instagram" });
   } catch {
-    return NextResponse.json({ posts: PLACEHOLDER_POSTS.slice(0, limit), source: "placeholder" });
+    return NextResponse.json({ posts: NO_POSTS, source: "not_connected" });
   }
 }

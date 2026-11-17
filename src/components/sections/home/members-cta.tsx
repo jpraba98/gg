@@ -28,7 +28,7 @@ export function MembersCta() {
           </p>
           <div className="relative mt-6 flex flex-wrap items-center justify-center gap-6 text-sm text-text-secondary">
             <span>
-              <span className="font-semibold text-white">DR Member</span> — $5/mo or $60/yr
+              <span className="font-semibold text-white">TheDripRoom6ix Member</span> — $5/mo or $60/yr
             </span>
             <span className="hidden h-4 w-px bg-border sm:block" />
             <span>

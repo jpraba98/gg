@@ -57,6 +57,7 @@ export function MediaPreview() {
                   <div className="relative aspect-video overflow-hidden bg-card">
                     <Image
                       src={video.thumbnail}
+                    unoptimized
                       alt={video.title}
                       fill
                       sizes="(min-width: 768px) 33vw, 100vw"

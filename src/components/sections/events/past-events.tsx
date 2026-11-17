@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ImageIcon } from "lucide-react";
 
 import { Container } from "@/components/shared/container";
 import { Card } from "@/components/ui/card";
@@ -28,25 +27,33 @@ export function PastEvents() {
                 transition={{ duration: 0.4, delay: (i % 6) * 0.06 }}
               >
                 <Card className="card-lift overflow-hidden p-0 hover:border-gold-500/40">
-                  {/* TODO: swap for the real event recap photo once the client provides it — keep the aspect-video ratio */}
+                  {/* Swap for a real recap photo when available — keep the aspect-video ratio */}
                   <div
-                    className="flex aspect-video items-center justify-center bg-gradient-to-br from-gold-500/25 to-obsidian"
-                    role="img"
-                    aria-label={`${label} recap photo placeholder`}
+                    className="flex aspect-video flex-col items-center justify-center bg-gradient-to-br from-gold-500/25 to-obsidian px-4 text-center"
+                    aria-hidden="true"
                   >
-                    <ImageIcon className="h-6 w-6 text-gold-500" aria-hidden="true" />
+                    <span className="font-display text-2xl uppercase leading-tight text-white/90">
+                      {event.name}
+                    </span>
+                    {event.season && (
+                      <span className="mt-1 text-xs font-semibold uppercase tracking-widest text-gold-500">
+                        {event.season}
+                      </span>
+                    )}
                   </div>
                   <div className="p-5">
                     <p className="truncate font-semibold text-white">{label}</p>
                     <p className="text-xs text-text-secondary">{event.year}</p>
-                    {/* TODO: link to the real recap post/gallery once available */}
-                    <a
-                      href="#"
-                      aria-label={`View recap for ${label} (coming soon)`}
-                      className="mt-1 inline-block text-xs font-semibold text-gold-500 hover:underline"
-                    >
-                      View Recap
-                    </a>
+                    {event.recapUrl && (
+                      <a
+                        href={event.recapUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1 inline-block text-xs font-semibold text-gold-500 hover:underline"
+                      >
+                        View Recap
+                      </a>
+                    )}
                   </div>
                 </Card>
               </motion.div>

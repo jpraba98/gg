@@ -25,11 +25,8 @@ export const pressFeatures: PressFeature[] = [
     title: "Stars Align in the 6ix",
     url: "https://www.blogto.com/events/stars-align-in-the-6ix-toronto/",
   },
-  {
-    outlet: "PlayMoreEnt",
-    title: "Sandalwood Parkway — A Brampton-Born Collaboration",
-    url: "https://playmoreent.com/articles/f/sandalwood-parkway-%E2%80%93-a-brampton-born-collaboration-that-sounds",
-  },
+  // PlayMoreEnt "Sandalwood Parkway" article removed: the URL 404s (checked
+  // Nov 17, 2026). Add it back here with a working link.
 ];
 
 export interface IndustryCredit {

@@ -22,7 +22,7 @@ export const blogPosts: BlogPost[] = [
     content: [
       "TheDripRoom6ix is proud to announce Island Motion Vol. 1, presented by Access 2 Motion and powered by TheDripRoom6ix & CTR Productions, landing at Dopamine Lounge on August 27, 2026.",
       "This showcase brings together live performance and DJ culture in one room, headlined by Topman Meeko with sets from DJ Icy, and openers DJ Unruly & DJ Jojo.",
-      "Tickets are limited and available now via Eventbrite. Doors open at 8:00 PM, last call at 2:00 AM. This is a 19+ event — valid ID required at the door.",
+      "Update: Island Motion Vol. 1 went down on August 27, 2026. Thank you to everyone who pulled up, and to Access 2 Motion, CTR Productions and our sponsors. Next up: Love in the 6ix Season 3. Follow @thedriproom6ix for the date drop.",
     ],
   },
   {
@@ -52,7 +52,7 @@ export const blogPosts: BlogPost[] = [
     content: [
       "Independent artists in Toronto face a crowded field, but the fundamentals of getting discovered haven't changed: consistent content, strategic placements, and real community engagement.",
       "Our Hype Packs were built specifically to give emerging artists an affordable way to test paid promotion without committing to a full campaign.",
-      "Want the full breakdown? Check out The 6ix Blueprint in our Digital Products — a step-by-step guide built from what's actually worked for our own roster.",
+      "Want the full breakdown? Check out The 6ix Blueprint under Digital Products on our Services page — a step-by-step guide built from what's actually worked for our own roster.",
     ],
   },
 ];

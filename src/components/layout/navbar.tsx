@@ -63,7 +63,7 @@ export function Navbar() {
         <div className="hidden items-center gap-4 lg:flex">
           <NavAuthSection accent={isEvents ? "gold" : "drip"} />
           <Button asChild variant={isEvents ? "gold" : "primary"} size="sm">
-            <Link href="/services">Book Now</Link>
+            <Link href="/services#book">Book Now</Link>
           </Button>
         </div>
 
@@ -99,7 +99,7 @@ export function Navbar() {
                 </Link>
               ))}
               <Button asChild className="mt-3" variant={isEvents ? "gold" : "primary"}>
-                <Link href="/services">Book Now</Link>
+                <Link href="/services#book">Book Now</Link>
               </Button>
               <MobileAuthLinks />
             </Container>

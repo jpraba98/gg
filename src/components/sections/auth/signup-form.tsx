@@ -103,11 +103,15 @@ export function SignUpForm() {
         </Button>
       </form>
 
-      <div className="mt-5 border-t border-border pt-5">
-        <Button variant="outline" className="w-full" onClick={handleGoogle}>
-          Continue with Google
-        </Button>
-      </div>
+      {/* Shown only once Google is enabled in Supabase → Authentication → Sign In / Providers
+          and NEXT_PUBLIC_GOOGLE_AUTH_ENABLED=true is set in Vercel. */}
+      {process.env.NEXT_PUBLIC_GOOGLE_AUTH_ENABLED === "true" && (
+        <div className="mt-5 border-t border-border pt-5">
+          <Button variant="outline" className="w-full" onClick={handleGoogle}>
+            Continue with Google
+          </Button>
+        </div>
+      )}
 
       <p className="mt-6 text-center text-sm text-text-secondary">
         Already have an account?{" "}

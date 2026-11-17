@@ -22,7 +22,7 @@ export default function ServicesPage() {
       <HypePacks />
       <ProofOfWork />
       <CatalogGrid />
-      <section className="border-t border-border py-24">
+      <section id="book" className="scroll-mt-24 border-t border-border py-24">
         <Container>
           <BookingForm />
         </Container>

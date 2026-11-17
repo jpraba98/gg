@@ -79,6 +79,7 @@ export function BlogGrid({ articles }: { articles: Article[] }) {
                   <span className="flex items-center gap-1.5">
                     <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />
                     {new Date(post.date).toLocaleDateString("en-CA", {
+                      timeZone: "UTC",
                       year: "numeric",
                       month: "short",
                       day: "numeric",

@@ -83,6 +83,8 @@ export interface PastEvent {
   series?: string;
   season?: string;
   year: string;
+  /** Link to a recap post, video or gallery; the "View Recap" link only shows when set. */
+  recapUrl?: string;
 }
 
 export const pastEvents: PastEvent[] = [

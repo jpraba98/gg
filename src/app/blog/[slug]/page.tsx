@@ -54,6 +54,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           <span className="flex items-center gap-1.5">
             <CalendarDays className="h-4 w-4" aria-hidden="true" />
             {new Date(post.date).toLocaleDateString("en-CA", {
+                      timeZone: "UTC",
               year: "numeric",
               month: "long",
               day: "numeric",
