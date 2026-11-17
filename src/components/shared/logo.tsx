@@ -71,6 +71,11 @@ export function Logo({ variant = "drip", className, showWordmark = true, size = 
         width={naturalSize[variant][size].width}
         height={naturalSize[variant][size].height}
         className={cn(heightClass, "w-auto object-contain", className)}
+        // Served as-is (already web-sized, transparent PNGs). Going through the
+        // image optimizer dropped the transparency on some phones, which drew a
+        // dark box around the hero logo.
+        unoptimized
+        priority={size === "lg"}
         onError={() => setImageFailed(true)}
       />
     );
